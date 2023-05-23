@@ -1,0 +1,9 @@
+{
+  "parent": "forge:item/bucket",
+  "loader": "forge:bucket",
+  "textures":{
+    "base": "minecraft:item/bucket",
+    "fluid":"creatingspace:items/buckets/drip"
+  },
+  "fluid": "creatingspace:liquid_hydrogene"
+}

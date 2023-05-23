@@ -1,0 +1,28 @@
+
+modLoader="javafml"
+loaderVersion="[43,)"
+license="MIT"
+
+
+[[mods]]
+modId="creatingspace"
+version="1.2"
+displayName="Creating Space"
+logoFile="logo.jpg"
+credits="above and beyond modpack for the logo"
+authors="Real Ant Engineer"
+
+description='''
+Going to space with create
+'''
+
+[[dependencies.creatingspace]]
+modId="create"
+mandatory=true
+versionRange="[0.5.0.i,)"
+ordering="NONE"
+side="BOTH"
+
+
+
+

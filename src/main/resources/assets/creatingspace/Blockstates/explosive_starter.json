@@ -1,0 +1,34 @@
+{
+  "variants": {
+    "charged=false,facing=north": {
+      "model": "creatingspace:block/explosive_starter/empty"
+    },
+    "charged=false,facing=south": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "y": 180
+    },
+    "charged=false,facing=west": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "y": 270
+    },
+    "charged=false,facing=east": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "y": 90
+    },
+    "charged=true,facing=north": {
+      "model": "creatingspace:block/explosive_starter/loaded"
+    },
+    "charged=true,facing=south": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "y": 180
+    },
+    "charged=true,facing=west": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "y": 270
+    },
+    "charged=true,facing=east": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "y": 90
+    }
+  }
+}
