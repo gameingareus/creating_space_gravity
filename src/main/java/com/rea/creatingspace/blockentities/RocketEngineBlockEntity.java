@@ -8,6 +8,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -29,8 +30,8 @@ public class RocketEngineBlockEntity extends BlockEntity {
     }
 
 
-    public RocketEngineBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityInit.ENGINE.get(),pos, state);
+    public RocketEngineBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type,pos, state);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class RocketEngineBlockEntity extends BlockEntity {
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == FluidInit.LIQUID_OXYGEN.source.get();
+            return stack.getFluid() == FluidInit.LIQUID_OXYGEN.get();
         }
     };
 
@@ -90,7 +91,7 @@ public class RocketEngineBlockEntity extends BlockEntity {
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == FluidInit.LIQUID_METHANE.source.get();
+            return stack.getFluid() == FluidInit.LIQUID_METHANE.get();
         }
     };
 
@@ -101,8 +102,8 @@ public class RocketEngineBlockEntity extends BlockEntity {
             return ;
         }else {
             if (verifyFeeding(level, entity)) {
-                entity.OXYGEN_TANK.drain(entity.getConsumption(FluidInit.LIQUID_METHANE.type.get().getDensity()), IFluidHandler.FluidAction.EXECUTE);
-                entity.METHANE_TANK.drain(entity.getConsumption(FluidInit.LIQUID_OXYGEN.type.get().getDensity()), IFluidHandler.FluidAction.EXECUTE);
+                entity.OXYGEN_TANK.drain(entity.getConsumption(FluidInit.LIQUID_METHANE.getType().getDensity()), IFluidHandler.FluidAction.EXECUTE);
+                entity.METHANE_TANK.drain(entity.getConsumption(FluidInit.LIQUID_OXYGEN.getType().getDensity()), IFluidHandler.FluidAction.EXECUTE);
 
                 setChanged(level, pos, state);
 
@@ -111,8 +112,8 @@ public class RocketEngineBlockEntity extends BlockEntity {
     }
 
     private static boolean verifyFeeding(Level level, BlockEntity entity) {
-        boolean enoughMethane = ((RocketEngineBlockEntity)entity).METHANE_TANK.getFluidAmount() > ((RocketEngineBlockEntity) entity).getConsumption(FluidInit.LIQUID_METHANE.type.get().getDensity());
-        boolean enoughOxygen = ((RocketEngineBlockEntity) entity).OXYGEN_TANK.getFluidAmount() > ((RocketEngineBlockEntity) entity).getConsumption(FluidInit.LIQUID_OXYGEN.type.get().getDensity());
+        boolean enoughMethane = ((RocketEngineBlockEntity)entity).METHANE_TANK.getFluidAmount() > ((RocketEngineBlockEntity) entity).getConsumption(FluidInit.LIQUID_METHANE.getType().getDensity());
+        boolean enoughOxygen = ((RocketEngineBlockEntity) entity).OXYGEN_TANK.getFluidAmount() > ((RocketEngineBlockEntity) entity).getConsumption(FluidInit.LIQUID_OXYGEN.getType().getDensity());
         boolean commandedToFire = level.getDirectSignalTo(entity.getBlockPos())>0;
 
         return enoughMethane &&enoughOxygen&&commandedToFire;

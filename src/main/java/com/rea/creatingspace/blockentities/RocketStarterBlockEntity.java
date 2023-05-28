@@ -1,65 +1,41 @@
 package com.rea.creatingspace.blockentities;
 
-import com.rea.creatingspace.CreatingSpace;
-import com.rea.creatingspace.blocks.RocketControlsBlock;
+
+import com.jozufozu.flywheel.util.transform.TransformStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.rea.creatingspace.blocks.RocketStarterBlock;
-import com.rea.creatingspace.init.BlockEntityInit;
+
+import com.simibubi.create.content.kinetics.base.GeneratingKineticBlockEntity;
+
+import com.simibubi.create.content.kinetics.motor.CreativeMotorBlock;
+import com.simibubi.create.foundation.utility.AngleHelper;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.Vec3;
 
-public class RocketStarterBlockEntity extends BlockEntity {
+import static com.rea.creatingspace.blocks.RocketStarterBlock.GENERATING;
 
-    private int starter_id = 0;
-
-    public static final Component TITLE = Component.translatable("container."+ CreatingSpace.MODID +".rocket_starter");
-    public RocketStarterBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityInit.STARTER.get(),pos, state);
-    }
-
-    public void tick( ) {
+public class RocketStarterBlockEntity extends GeneratingKineticBlockEntity {
+    public RocketStarterBlockEntity(BlockEntityType<?> type,BlockPos pos, BlockState state) {
+        super(type,pos, state);
+        setLazyTickRate(20);
     }
 
     @Override
-    public void load(CompoundTag nbt) {
-        super.load(nbt);
-        this.starter_id = nbt.getInt("Starter_id");
+    public void initialize() {
+        super.initialize();
+        if (!hasSource() || getGeneratedSpeed() > getTheoreticalSpeed())
+            updateGeneratedRotation();
     }
 
     @Override
-    protected void saveAdditional(CompoundTag nbt) {
-        super.saveAdditional(nbt);
-        nbt.putInt("Starter_id",this.starter_id);
-    }
-
-
-    private final ContainerData data = new ContainerData() {
-        @Override
-        public int get(int index) {
-            return switch (index) {
-                case 0-> RocketStarterBlockEntity.this.starter_id;
-                default -> 0;
-            };
+    public float getGeneratedSpeed() {
+        if (this.getBlockState().getValue(GENERATING)) {
+            return 64 ;
+        } else {
+            return 0;
         }
-
-        @Override
-        public void set(int index, int value) {
-            switch (index) {
-                case 0-> RocketStarterBlockEntity.this.starter_id = value;
-                default -> {}
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return 1;
-        }
-    };
-
-    public ContainerData getContainerData() {
-        return this.data;
     }
 }

@@ -1,32 +1,113 @@
 {
   "variants": {
-    "charged=false,facing=north": {
+    "charged=false,hfacing=north,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 180
+    },
+    "charged=false,hfacing=north,face=wall": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 90
+    },
+    "charged=false,hfacing=north,face=floor": {
       "model": "creatingspace:block/explosive_starter/empty"
     },
-    "charged=false,facing=south": {
+
+    "charged=false,hfacing=south,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 180,
+      "y": 180
+    },
+    "charged=false,hfacing=south,face=wall": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 90,
+      "y": 180
+    },
+    "charged=false,hfacing=south,face=floor": {
       "model": "creatingspace:block/explosive_starter/empty",
       "y": 180
     },
-    "charged=false,facing=west": {
+
+    "charged=false,hfacing=west,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 180,
+      "y": 270
+    },
+    "charged=false,hfacing=west,face=wall": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 90,
+      "y": 270
+    },
+    "charged=false,hfacing=west,face=floor": {
       "model": "creatingspace:block/explosive_starter/empty",
       "y": 270
     },
-    "charged=false,facing=east": {
+
+    "charged=false,hfacing=east,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 180,
+      "y": 90
+    },
+    "charged=false,hfacing=east,face=wall": {
+      "model": "creatingspace:block/explosive_starter/empty",
+      "x": 90,
+      "y": 90
+    },
+    "charged=false,hfacing=east,face=floor": {
       "model": "creatingspace:block/explosive_starter/empty",
       "y": 90
     },
-    "charged=true,facing=north": {
+
+    "charged=true,hfacing=north,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 180
+    },
+    "charged=true,hfacing=north,face=wall": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 90
+    },
+    "charged=true,hfacing=north,face=floor": {
       "model": "creatingspace:block/explosive_starter/loaded"
     },
-    "charged=true,facing=south": {
+
+    "charged=true,hfacing=south,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 180,
+      "y": 180
+    },
+    "charged=true,hfacing=south,face=wall": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 90,
+      "y": 180
+    },
+    "charged=true,hfacing=south,face=floor": {
       "model": "creatingspace:block/explosive_starter/loaded",
       "y": 180
     },
-    "charged=true,facing=west": {
+
+    "charged=true,hfacing=west,face=ceiling": {
       "model": "creatingspace:block/explosive_starter/loaded",
       "y": 270
     },
-    "charged=true,facing=east": {
+    "charged=true,hfacing=west,face=wall": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "y": 270
+    },
+    "charged=true,hfacing=west,face=floor": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "y": 270
+    },
+
+    "charged=true,hfacing=east,face=ceiling": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 180,
+      "y": 90
+    },
+    "charged=true,hfacing=east,face=wall": {
+      "model": "creatingspace:block/explosive_starter/loaded",
+      "x": 90,
+      "y": 90
+    },
+    "charged=true,hfacing=east,face=floor": {
       "model": "creatingspace:block/explosive_starter/loaded",
       "y": 90
     }

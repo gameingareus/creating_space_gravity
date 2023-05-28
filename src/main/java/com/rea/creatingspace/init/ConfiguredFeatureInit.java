@@ -6,8 +6,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.data.worldgen.features.OreFeatures;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
-import net.minecraft.world.level.levelgen.feature.OreFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -33,4 +33,10 @@ public class ConfiguredFeatureInit {
             ()-> new ConfiguredFeature<>(
                     Feature.ORE,
                     new OreConfiguration(NICKEL_OVERWORLD_REPLACEMENT.get(),9)));
+
+    public static void register(IEventBus bus) {
+        CONFIGURED_FEATURES.register(bus);
+    }
+
+
 }

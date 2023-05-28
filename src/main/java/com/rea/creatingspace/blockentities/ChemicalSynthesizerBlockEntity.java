@@ -5,7 +5,7 @@ import com.rea.creatingspace.blocks.ChemicalSynthesizerBlock;
 import com.rea.creatingspace.init.BlockEntityInit;
 import com.rea.creatingspace.init.FluidInit;
 import com.rea.creatingspace.init.ItemInit;
-import com.rea.creatingspace.menus.ChemicalSynthesizerMenu;
+//import com.rea.creatingspace.menus.ChemicalSynthesizerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -20,6 +20,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
@@ -32,7 +33,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuProvider {
+public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements MenuProvider*/ {
 
     //doesn't load item with a hopper, put unload them and work both way with Create's funnel so no problem
     private final ItemStackHandler inventory = new ItemStackHandler(1){
@@ -60,8 +61,8 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuP
     private int maxProgress = 78;
 
     public static final Component TITLE = Component.translatable("container."+ CreatingSpace.MODID +".synthesizer");
-    public ChemicalSynthesizerBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityInit.SYNTHESIZER.get(),pos, state);
+    public ChemicalSynthesizerBlockEntity(BlockEntityType<?> type,BlockPos pos, BlockState state) {
+        super(type,pos, state);
     }
 
     public static void  tick(Level level, BlockPos pos, BlockState state, ChemicalSynthesizerBlockEntity synthesizerBlockEntity) {
@@ -89,8 +90,8 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuP
     private static void craftFluid(ChemicalSynthesizerBlockEntity synthesizerBlockEntity) {
         if(hasRecipe(synthesizerBlockEntity)) {
             synthesizerBlockEntity.inventory.extractItem(0,1,false);
-            synthesizerBlockEntity.HYDROGEN_TANK.drain(new FluidStack(FluidInit.LIQUID_HYDROGEN.source.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
-            synthesizerBlockEntity.METHANE_TANK.fill(new FluidStack(FluidInit.LIQUID_METHANE.source.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
+            synthesizerBlockEntity.HYDROGEN_TANK.drain(new FluidStack(FluidInit.LIQUID_HYDROGEN.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
+            synthesizerBlockEntity.METHANE_TANK.fill(new FluidStack(FluidInit.LIQUID_METHANE.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
             //synthesizerBlockEntity.fluidHandler.set...
             synthesizerBlockEntity.resetProgress();
         }
@@ -195,16 +196,16 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuP
         return inventory;
     }
 
-    @Override
+    /*@Override
     public Component getDisplayName() {
         return null;
-    }
+    }*/
 
-    @Nullable
+    /*@Nullable
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return new ChemicalSynthesizerMenu(id, player.getInventory(),this.inventory,this.getBlockPos(),this.data);
-    }
+    }*/
 
 
     //fluid
@@ -219,7 +220,7 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuP
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == FluidInit.LIQUID_HYDROGEN.source.get();
+            return stack.getFluid() == FluidInit.LIQUID_HYDROGEN.get();
         }
     };
 
@@ -232,7 +233,7 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity implements MenuP
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == FluidInit.LIQUID_METHANE.source.get();
+            return stack.getFluid() == FluidInit.LIQUID_METHANE.get();
         }
 
     };

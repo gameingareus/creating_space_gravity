@@ -2,7 +2,7 @@ package com.rea.creatingspace.blocks;
 
 import com.rea.creatingspace.blockentities.RocketControlsBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
-import com.rea.creatingspace.menus.RocketControlsMenu;
+//import com.rea.creatingspace.menus.RocketControlsMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -102,7 +102,7 @@ public class RocketControlsBlock extends Block implements EntityBlock {
         };
     }
 
-    @Override
+    /*@Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
         if(!level.isClientSide()){
             if(level.getBlockEntity(pos) instanceof RocketControlsBlockEntity controlsBlockEntity){
@@ -113,7 +113,7 @@ public class RocketControlsBlock extends Block implements EntityBlock {
         }
 
         return InteractionResult.sidedSuccess(!level.isClientSide());
-    }
+    }*/
 
 }
 

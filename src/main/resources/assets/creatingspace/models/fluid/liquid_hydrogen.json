@@ -1,4 +1,4 @@
 {
   "parent": "block/cube_all",
-  "textures": {"all": "creatingspace:fluids/liquid_hydrogene"}
+  "textures": {"all": "creatingspace:fluid/liquid_hydrogen"}
 }

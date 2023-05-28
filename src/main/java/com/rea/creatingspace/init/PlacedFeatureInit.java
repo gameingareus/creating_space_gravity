@@ -4,6 +4,7 @@ import com.rea.creatingspace.CreatingSpace;
 import net.minecraft.core.Registry;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.placement.*;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -25,5 +26,9 @@ public class PlacedFeatureInit {
     }
     private static List<PlacementModifier> orePlacement(PlacementModifier count, PlacementModifier height) {
         return List.of(count, InSquarePlacement.spread(), height, BiomeFilter.biome());
+    }
+
+    public static void register(IEventBus bus) {
+        PLACED_FEATURES.register(bus);
     }
 }

@@ -1,19 +1,19 @@
 
 {
   "variants": {
-    "facing=north": {
-      "model": "creatingspace:block/mechanical_electrolyzer"
+    "hfacing=north": {
+      "model": "creatingspace:block/mechanical_electrolyzer/block"
     },
-    "facing=south": {
-      "model": "creatingspace:block/mechanical_electrolyzer",
+    "hfacing=south": {
+      "model": "creatingspace:block/mechanical_electrolyzer/block",
       "y": 180
     },
-    "facing=west": {
-      "model": "creatingspace:block/mechanical_electrolyzer",
+    "hfacing=west": {
+      "model": "creatingspace:block/mechanical_electrolyzer/block",
       "y": 270
     },
-    "facing=east": {
-      "model": "creatingspace:block/mechanical_electrolyzer",
+    "hfacing=east": {
+      "model": "creatingspace:block/mechanical_electrolyzer/block",
       "y": 90
     }
   }

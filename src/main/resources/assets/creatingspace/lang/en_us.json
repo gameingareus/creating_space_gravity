@@ -34,9 +34,9 @@
   "item.creatingspace.liquid_oxygen_bucket": "Bucket of Liquid Oxygen",
   "item.creatingspace.liquid_hydrogen_bucket": "Bucket of Liquid Hydrogen",
 
-  "fluid_type.creatingspace.liquid_methane" : "Liquid Methane",
-  "fluid_type.creatingspace.liquid_oxygen" : "Liquid Oxygen",
-  "fluid_type.creatingspace.liquid_hydrogen" : "Liquid Hydrogen",
+  "fluid.creatingspace.liquid_methane" : "Liquid Methane",
+  "fluid.creatingspace.liquid_oxygen" : "Liquid Oxygen",
+  "fluid.creatingspace.liquid_hydrogen" : "Liquid Hydrogen",
 
 
 

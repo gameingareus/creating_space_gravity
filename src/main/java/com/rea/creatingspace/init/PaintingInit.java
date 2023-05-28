@@ -2,6 +2,7 @@ package com.rea.creatingspace.init;
 
 import com.rea.creatingspace.CreatingSpace;
 import net.minecraft.world.entity.decoration.PaintingVariant;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -15,4 +16,8 @@ public class PaintingInit {
             "blank_painting",
             () -> new PaintingVariant(16,16)
             );
+
+    public static void register(IEventBus bus) {
+        PAINTINGS.register(bus);
+    }
 }

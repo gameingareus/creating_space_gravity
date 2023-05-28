@@ -3,6 +3,7 @@ package com.rea.creatingspace.blocks;
 import com.rea.creatingspace.blockentities.ChemicalSynthesizerBlockEntity;
 import com.rea.creatingspace.blockentities.RocketEngineBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
+import com.simibubi.create.foundation.utility.Couple;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionHand;
@@ -99,5 +100,9 @@ public class RocketEngineBlock extends Block implements EntityBlock {
             }
 
         };
+    }
+
+    public static Couple<Integer> getSpeedRange() {
+        return Couple.create(1, 16);
     }
 }

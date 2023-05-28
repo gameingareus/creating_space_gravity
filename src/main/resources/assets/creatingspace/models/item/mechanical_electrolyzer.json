@@ -1,3 +1,3 @@
 {
-  "parent": "creatingspace:block/mechanical_electrolyzer"
+  "parent": "creatingspace:block/mechanical_electrolyzer/item"
 }

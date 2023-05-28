@@ -1,66 +1,135 @@
 package com.rea.creatingspace.init;
 
+
 import com.rea.creatingspace.CreatingSpace;
-import com.rea.creatingspace.base.FluidRegistryContainer;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Fluid;
+import com.tterrag.registrate.util.entry.FluidEntry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.BlockAndTintGetter;
+import net.minecraft.world.level.material.FluidState;
+import net.minecraftforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidType;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
+
+import java.util.function.Consumer;
+
+import static com.rea.creatingspace.CreatingSpace.REGISTRATE;
 
 public class FluidInit {
-    public static final DeferredRegister<FluidType> FLUID_TYPES =
-            DeferredRegister.create(ForgeRegistries.Keys.FLUID_TYPES, CreatingSpace.MODID);
 
-    public static final DeferredRegister<Fluid> FLUIDS =
-            DeferredRegister.create(ForgeRegistries.FLUIDS, CreatingSpace.MODID);
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_METHANE =
+            REGISTRATE.standardFluid("liquid_methane",NoColorFluidAttributes::new)
+                    .properties(b-> b.viscosity(1000).temperature(90).density(423))
+                    .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                            .tickRate(25)
+                            .slopeFindDistance(3)
+                            .explosionResistance(100f))
+                    .source(ForgeFlowingFluid.Source::new)
+                    .bucket()
+                    .build()
+                    .register();
 
-    public static final FluidRegistryContainer LIQUID_METHANE =
-            new FluidRegistryContainer(
-                    "liquid_methane",
-                    FluidType.Properties.create().temperature(90).density(423),
-                    () -> FluidRegistryContainer.createExtension(
-                            new FluidRegistryContainer.ClientExtensions(
-                                    CreatingSpace.MODID,
-                                    "liquid_methane")
-                                    .still("liquid_methane","fluids")
-                                    .flowing("liquid_methane","fluids")
-                                    .overlay("liquid_methane","fluids")
-                                    .fogColor(0.75f,0.21f,0.5f)),
-                    BlockBehaviour.Properties.copy(Blocks.WATER),
-                    new Item.Properties().tab(CreatingSpace.MINERALS_TAB).stacksTo(1));
+                          /*fogColor(0.75f,0.21f,0.5f))*/
 
-    public static final FluidRegistryContainer LIQUID_OXYGEN =
-            new FluidRegistryContainer(
-                    "liquid_oxygen",
-                    FluidType.Properties.create().temperature(90).density(1141),
-                    () -> FluidRegistryContainer.createExtension(
-                            new FluidRegistryContainer.ClientExtensions(
-                                    CreatingSpace.MODID,
-                                    "liquid_oxygen")
-                                    .still("liquid_oxygen","fluids")
-                                    .flowing("liquid_oxygen","fluids")
-                                    .overlay("liquid_oxygen","fluids")
-                                    .fogColor(0.08f,0.55f,0.81f)),
-                    BlockBehaviour.Properties.copy(Blocks.WATER),
-                    new Item.Properties().tab(CreatingSpace.MINERALS_TAB).stacksTo(1));
 
-    public static final FluidRegistryContainer LIQUID_HYDROGEN =
-            new FluidRegistryContainer(
-                    "liquid_hydrogen",
-                    FluidType.Properties.create().temperature(10).density(70),
-                    () -> FluidRegistryContainer.createExtension(
-                            new FluidRegistryContainer.ClientExtensions(
-                                    CreatingSpace.MODID,
-                                    "liquid_hydrogen")
-                                    .still("liquid_hydrogen","fluids")
-                                    .flowing("liquid_hydrogen","fluids")
-                                    .overlay("liquid_hydrogen","fluids")
-                                    .fogColor(0.69f,0.34f,0.96f)),
-                    BlockBehaviour.Properties.copy(Blocks.WATER),
-                    new Item.Properties().tab(CreatingSpace.MINERALS_TAB).stacksTo(1));
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_OXYGEN =
+            REGISTRATE.standardFluid("liquid_oxygen",NoColorFluidAttributes::new)
+                            .properties(b-> b.viscosity(1000).temperature(90).density(1141))
+                    .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                            .tickRate(25)
+                            .slopeFindDistance(3)
+                            .explosionResistance(100f))
+                    .source(ForgeFlowingFluid.Source::new)
+                    .bucket()
+                    .build()
+                    .register();
+
+                    /*fogColor(0.08f,0.55f,0.81f))*/
+
+
+    public static final FluidEntry<ForgeFlowingFluid.Flowing> LIQUID_HYDROGEN =
+            REGISTRATE.standardFluid(
+                    "liquid_hydrogen",NoColorFluidAttributes::new)
+                    .properties(b-> b.viscosity(1000).temperature(10).density(70))
+                    .fluidProperties(p -> p.levelDecreasePerBlock(2)
+                            .tickRate(25)
+                            .slopeFindDistance(3)
+                            .explosionResistance(100f))
+                    .source(ForgeFlowingFluid.Source::new)
+                    .bucket()
+                    .build()
+                    .register();
+
+/*fogColor(0.69f,0.34f,0.96f))*/
+
+
+    public static abstract class TintedFluidType extends FluidType {
+
+        protected static final int NO_TINT = 0xffffffff;
+        private ResourceLocation stillTexture;
+        private ResourceLocation flowingTexture;
+
+        public TintedFluidType(Properties properties, ResourceLocation stillTexture, ResourceLocation flowingTexture) {
+            super(properties);
+            this.stillTexture = new ResourceLocation(CreatingSpace.MODID,stillTexture.getPath());
+            this.flowingTexture = new ResourceLocation(CreatingSpace.MODID,flowingTexture.getPath());
+        }
+
+        @Override
+        public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
+            consumer.accept(new IClientFluidTypeExtensions() {
+
+                @Override
+                public ResourceLocation getStillTexture() {
+                    return stillTexture;
+                }
+
+                @Override
+                public ResourceLocation getFlowingTexture() {
+                    return flowingTexture;
+                }
+
+                @Override
+                public int getTintColor(FluidStack stack) {
+                    return TintedFluidType.this.getTintColor(stack);
+                }
+
+                @Override
+                public int getTintColor(FluidState state, BlockAndTintGetter getter, BlockPos pos) {
+                    return TintedFluidType.this.getTintColor(state, getter, pos);
+                }
+
+            });
+        }
+
+        protected abstract int getTintColor(FluidStack stack);
+
+        protected abstract int getTintColor(FluidState state, BlockAndTintGetter getter, BlockPos pos);
+
+    }
+
+
+    private static class NoColorFluidAttributes extends TintedFluidType {
+
+        public NoColorFluidAttributes(Properties properties, ResourceLocation stillTexture,
+                                      ResourceLocation flowingTexture) {
+            super(properties, stillTexture, flowingTexture);
+        }
+
+        @Override
+        protected int getTintColor(FluidStack stack) {
+            return NO_TINT;
+        }
+
+        @Override
+        public int getTintColor(FluidState state, BlockAndTintGetter world, BlockPos pos) {
+            return 0x00ffffff;
+        }
+
+    }
+
+    public static void register() {}
 
 }
 

@@ -11,16 +11,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
-public class RocketControlsBlockEntity extends BlockEntity implements MenuProvider {
+public class RocketControlsBlockEntity extends BlockEntity /*implements MenuProvider*/ {
 
     private int controls_id = 0;
 
     public static final Component TITLE = Component.translatable("container."+ CreatingSpace.MODID +".rocket_controls");
-    public RocketControlsBlockEntity(BlockPos pos, BlockState state) {
-        super(BlockEntityInit.CONTROLS.get(),pos, state);
+    public RocketControlsBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(/*BlockEntityInit.CONTROLS.get()*/type,pos, state);
     }
 
     public void tick() {
@@ -67,7 +68,7 @@ public class RocketControlsBlockEntity extends BlockEntity implements MenuProvid
         return this.data;
     }
 
-    @Override
+    /*@Override
     public Component getDisplayName() {
         return null;
     }
@@ -76,5 +77,5 @@ public class RocketControlsBlockEntity extends BlockEntity implements MenuProvid
     @Override
     public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
         return null;
-    }
+    }*/
 }
