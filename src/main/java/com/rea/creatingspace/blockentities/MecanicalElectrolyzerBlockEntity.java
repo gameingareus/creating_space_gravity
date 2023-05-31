@@ -192,15 +192,9 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
                 default -> throw new IllegalStateException("Unexpected value: " + i);
             };
 
-            int flow = switch (i) {
-                case 0 -> waterConsumption(speed);
-                case 1 -> oxygenProduction(speed);
-                case 2 -> hydrogenProduction(speed);
-                default -> throw new IllegalStateException("Unexpected value: " + i);
-            };
             FluidStack fluidStack = tank.getFluidInTank(0);
 
-            Lang.builder().add(Lang.translate(fluidName))
+            Lang.builder().add(Component.translatable(fluidName))
                     .style(ChatFormatting.GRAY)
                     .forGoggles(tooltip, 1);
 
@@ -212,9 +206,6 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
                     .add(Lang.number(tank.getTankCapacity(0))
                             .add(mb)
                             .style(ChatFormatting.DARK_GRAY))
-                    .add(Lang.number(flow)
-                            .add(mbs)
-                            .style(ChatFormatting.GOLD))
                     .forGoggles(tooltip, 1);
         }
         return super.addToGoggleTooltip(tooltip, isPlayerSneaking);

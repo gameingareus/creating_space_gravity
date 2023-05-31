@@ -35,6 +35,8 @@ public class BlockInit {
             .transform(customItemModel())
             .register();
 
+
+
     //ores
     public static final BlockEntry<Block> NICKEL_ORE = REGISTRATE.block(
                     "nickel_ore", Block::new)
@@ -119,6 +121,15 @@ public class BlockInit {
             .transform(BlockStressDefaults.setImpact(10))
             .item()
             .properties(p-> p.tab(AllCreativeModeTabs.MACHINE_TAB))
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<FlowGaugeBlock> FLOW_METER = REGISTRATE
+            .block("flow_meter", FlowGaugeBlock::new)
+            .initialProperties(()-> Blocks.STONE)
+            .properties(p -> p.strength(1.0f).noOcclusion())
+            .item()
+            .properties(p -> p.tab(AllCreativeModeTabs.MACHINE_TAB))
             .transform(customItemModel())
             .register();
 

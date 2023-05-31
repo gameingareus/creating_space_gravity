@@ -59,19 +59,6 @@ public class ChemicalSynthesizerBlock extends Block implements EntityBlock {
     }
 
 
-    /*@Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if(!level.isClientSide()) {
-            if (level.getBlockEntity(pos) instanceof ChemicalSynthesizerBlockEntity synthesizerBlockEntity) {
-                MenuConstructor menuConstructor = ChemicalSynthesizerMenu.getServerMenu(synthesizerBlockEntity, pos);
-                SimpleMenuProvider provider = new SimpleMenuProvider(menuConstructor, ChemicalSynthesizerBlockEntity.TITLE);
-                NetworkHooks.openScreen((ServerPlayer) player, provider, pos);
-            }
-        }
-        return InteractionResult.sidedSuccess(!level.isClientSide());
-    }*/
-
-
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean isMoving) {
 

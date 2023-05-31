@@ -60,7 +60,6 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
     private int progress = 0;
     private int maxProgress = 78;
 
-    public static final Component TITLE = Component.translatable("container."+ CreatingSpace.MODID +".synthesizer");
     public ChemicalSynthesizerBlockEntity(BlockEntityType<?> type,BlockPos pos, BlockState state) {
         super(type,pos, state);
     }
@@ -196,18 +195,6 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
         return inventory;
     }
 
-    /*@Override
-    public Component getDisplayName() {
-        return null;
-    }*/
-
-    /*@Nullable
-    @Override
-    public AbstractContainerMenu createMenu(int id, Inventory inventory, Player player) {
-        return new ChemicalSynthesizerMenu(id, player.getInventory(),this.inventory,this.getBlockPos(),this.data);
-    }*/
-
-
     //fluid
 
 
@@ -245,14 +232,5 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
     public int getHydrogenAmount() {
         return this.HYDROGEN_TANK.getFluidAmount();
     }
-/*
-    public void setFluid(FluidStack stack) {
-        this.HYDROGEN_TANK.setFluid(stack);
 
-    }
-
-    public FluidStack getFluidStack() {
-        return this.HYDROGEN_TANK.getFluid();
-    }
- */
 }

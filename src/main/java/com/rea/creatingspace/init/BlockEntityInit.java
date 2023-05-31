@@ -3,8 +3,8 @@ package com.rea.creatingspace.init;
 import com.rea.creatingspace.blockentities.*;
 import com.rea.creatingspace.renderer.MechanicalElectrolyserBlockRenderer;
 import com.rea.creatingspace.renderer.RocketStarterBlockRenderer;
+import com.rea.creatingspace.renderer.FlowGaugeBlockRenderer;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
-import com.simibubi.create.content.kinetics.base.ShaftRenderer;
 import com.simibubi.create.content.kinetics.base.ShaftInstance;
 import static com.rea.creatingspace.CreatingSpace.REGISTRATE;
 
@@ -39,6 +39,13 @@ public class BlockEntityInit {
                     .instance(()-> ShaftInstance::new)
                     .validBlocks( BlockInit.MECHANICAL_ELECTROLYZER)
                     .renderer(()-> MechanicalElectrolyserBlockRenderer::new)
+                    .register();
+
+    public static final BlockEntityEntry<FlowGaugeBlockEntity> FLOW_METER =
+            REGISTRATE.blockEntity(
+                            "flow_meter", FlowGaugeBlockEntity::new)
+                    .validBlocks( BlockInit.FLOW_METER)
+                    .renderer(()-> FlowGaugeBlockRenderer::new)
                     .register();
 
     public static void register() {}
