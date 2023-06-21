@@ -1,15 +1,19 @@
 package com.rea.creatingspace.blocks;
 
+import com.rea.creatingspace.blockentities.GroundBuilderBlockEntity;
 import com.rea.creatingspace.blockentities.RocketControlsBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
 //import com.rea.creatingspace.menus.RocketControlsMenu;
+import com.rea.creatingspace.screen.DestinationScreen;
+import com.simibubi.create.content.trains.station.StationBlockEntity;
+import com.simibubi.create.foundation.block.IBE;
+import com.simibubi.create.foundation.gui.ScreenOpener;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.MenuConstructor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -22,21 +26,39 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.shapes.BooleanOp;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
-public class RocketControlsBlock extends Block implements EntityBlock {
+public class RocketControlsBlock extends Block implements IBE<RocketControlsBlockEntity> {
 
     public RocketControlsBlock(Properties properties) {
         super(properties);
     }
 
-    //shape
-    //private static final VoxelShape SHAPE = makeShape();
+
+    @Override
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
+        if (!level.isClientSide()){
+            if (player.getItemInHand(hand).isEmpty()){
+                if (level.getBlockEntity(pos) instanceof RocketControlsBlockEntity controlsBlock) {
+                    controlsBlock.queueAssembly();
+
+                    return InteractionResult.SUCCESS;
+                }
+            }
+        }
+        return InteractionResult.PASS;
+    }
+    @OnlyIn(value = Dist.CLIENT)
+    protected void displayScreen(RocketControlsBlockEntity be, Player player) {
+        if (!(player instanceof LocalPlayer))
+            return;
+        ScreenOpener.open(new DestinationScreen(be));
+    }
 
 
     @Override
@@ -49,13 +71,6 @@ public class RocketControlsBlock extends Block implements EntityBlock {
             default -> Shapes.box(0, 0, 0.375, 1, 0.875, 1);
         };
     }
-
-    /*public static VoxelShape makeShape(){
-        VoxelShape shape = Shapes.empty();
-        shape = Shapes.join(shape, Shapes.box(0, 0, 0.375, 1, 0.875, 1), BooleanOp.OR);
-        VoxelShape shape = Shapes.box(0, 0, 0.375, 1, 0.875, 1);
-        return shape;
-    }*/
 
     //blockstate
 
@@ -85,35 +100,24 @@ public class RocketControlsBlock extends Block implements EntityBlock {
 
     //blockEntity
 
-    @Nullable
     @Override
-    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return BlockEntityInit.CONTROLS.get().create(pos,state);
+    public Class<RocketControlsBlockEntity> getBlockEntityClass() {
+        return RocketControlsBlockEntity.class;
+    }
+
+    @Override
+    public BlockEntityType<? extends RocketControlsBlockEntity> getBlockEntityType() {
+        return BlockEntityInit.CONTROLS.get();
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide() ? null : ($0,pos,$1,blockEntity) -> {
-            if(blockEntity instanceof RocketControlsBlockEntity controls) {
-                controls.tick();
+            if(blockEntity instanceof RocketControlsBlockEntity controlsBlock) {
+                controlsBlock.tick();
             }
-
         };
     }
-
-    /*@Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if(!level.isClientSide()){
-            if(level.getBlockEntity(pos) instanceof RocketControlsBlockEntity controlsBlockEntity){
-                MenuConstructor menuConstructor = RocketControlsMenu.getServerMenu(controlsBlockEntity,pos);
-                SimpleMenuProvider provider = new SimpleMenuProvider(menuConstructor, RocketControlsBlockEntity.TITLE);
-                NetworkHooks.openScreen((ServerPlayer) player,provider,pos);
-            }
-        }
-
-        return InteractionResult.sidedSuccess(!level.isClientSide());
-    }*/
-
 }
 

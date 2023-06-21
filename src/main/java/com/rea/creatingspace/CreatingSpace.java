@@ -5,6 +5,7 @@ import com.rea.creatingspace.init.*;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 //import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -33,16 +34,31 @@ public class CreatingSpace {
         ItemInit.register();
         BlockInit.register();
         BlockEntityInit.register();
+        EntityInit.register();
         FluidInit.register();
 
+
+
+        DimensionInit.register();
 
         PaintingInit.register(bus);
         ConfiguredFeatureInit.register(bus);
         PlacedFeatureInit.register(bus);
         //MenuInit.MENUS.register(bus);
 
+        bus.addListener(CreatingSpace::init);
+
+    }
+    public static void init(final FMLCommonSetupEvent event) {
+
+        event.enqueueWork(() -> {
+
+            FluidInit.registerFluidInteractions();
+        });
     }
 
-
+    public static ResourceLocation resource(String path){
+        return new ResourceLocation(MODID,path);
+    }
 }
 

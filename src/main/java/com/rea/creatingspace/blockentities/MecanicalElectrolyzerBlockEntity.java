@@ -103,8 +103,6 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
         }
     };
 
-
-
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
 
@@ -136,19 +134,19 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
             }
             //setChanged();
             if (hasRecipe(blockEntity)) {
-                float speed = this.getSpeed();
-                blockEntity.HYDROGEN_TANK.fill(new FluidStack(FluidInit.LIQUID_HYDROGEN.get(),hydrogenProduction(speed)), IFluidHandler.FluidAction.EXECUTE);
-                blockEntity.OXYGEN_TANK.fill(new FluidStack(FluidInit.LIQUID_OXYGEN.get(),oxygenProduction(speed)), IFluidHandler.FluidAction.EXECUTE);
-                blockEntity.WATER_TANK.drain(waterConsumption(speed), IFluidHandler.FluidAction.EXECUTE);
+                float rot_speed = this.getSpeed();
+                blockEntity.HYDROGEN_TANK.fill(new FluidStack(FluidInit.LIQUID_HYDROGEN.get(),hydrogenProduction(rot_speed)), IFluidHandler.FluidAction.EXECUTE);
+                blockEntity.OXYGEN_TANK.fill(new FluidStack(FluidInit.LIQUID_OXYGEN.get(),oxygenProduction(rot_speed)), IFluidHandler.FluidAction.EXECUTE);
+                blockEntity.WATER_TANK.drain(waterConsumption(rot_speed), IFluidHandler.FluidAction.EXECUTE);
             }
         }
     }
     private boolean hasRecipe(MecanicalElectrolyzerBlockEntity blockEntity) {
-        float speed = this.getSpeed();
+        float rot_speed = this.getSpeed();
         boolean isRunning = !blockEntity.isOverStressed();
-        boolean enoughWater = blockEntity.WATER_TANK.getFluidAmount()>waterConsumption(speed);
-        boolean enoughSpaceInHTank = blockEntity.HYDROGEN_TANK.getSpace()>hydrogenProduction(speed);
-        boolean enoughSpaceInOTank = blockEntity.OXYGEN_TANK.getSpace()>oxygenProduction(speed);
+        boolean enoughWater = blockEntity.WATER_TANK.getFluidAmount()>waterConsumption(rot_speed);
+        boolean enoughSpaceInHTank = blockEntity.HYDROGEN_TANK.getSpace()>hydrogenProduction(rot_speed);
+        boolean enoughSpaceInOTank = blockEntity.OXYGEN_TANK.getSpace()>oxygenProduction(rot_speed);
 
         return enoughWater && enoughSpaceInHTank && enoughSpaceInOTank && isRunning;
     }

@@ -23,7 +23,6 @@ public class BlockInit {
         REGISTRATE.creativeModeTab(() -> AllCreativeModeTabs.COMPONENT_TAB);
         REGISTRATE.creativeModeTab(() -> AllCreativeModeTabs.MACHINE_TAB);
         REGISTRATE.creativeModeTab(() -> AllCreativeModeTabs.MINERALS_TAB);
-
     }
 
     //just blocks
@@ -87,6 +86,15 @@ public class BlockInit {
             "rocket_controls", RocketControlsBlock::new)
             .initialProperties(()-> Blocks.STONE)
             .properties(p-> p.strength(1.0f).dynamicShape().noOcclusion())
+            .item()
+            .properties(p-> p.tab(AllCreativeModeTabs.MACHINE_TAB))
+            .transform(customItemModel())
+            .register();
+
+    public static final BlockEntry<GroundBuilderBlock> GROUND_STATION = REGISTRATE.block(
+                    "ground_station", GroundBuilderBlock::new)
+            .initialProperties(()-> Blocks.STONE)
+            .properties(p-> p.strength(1.0f).noOcclusion())
             .item()
             .properties(p-> p.tab(AllCreativeModeTabs.MACHINE_TAB))
             .transform(customItemModel())

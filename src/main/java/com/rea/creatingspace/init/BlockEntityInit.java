@@ -14,6 +14,11 @@ public class BlockEntityInit {
             .validBlocks(BlockInit.ROCKET_CONTROLS)
             .register();
 
+    public static final BlockEntityEntry<GroundBuilderBlockEntity> GROUND_STATION =
+            REGISTRATE.blockEntity("station", GroundBuilderBlockEntity::new)
+                    .validBlocks(BlockInit.GROUND_STATION)
+                    .register();
+
     public static final BlockEntityEntry<RocketStarterBlockEntity> STARTER =
             REGISTRATE.blockEntity("starter", RocketStarterBlockEntity::new )
                     .instance(() -> ShaftInstance::new, false)

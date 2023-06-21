@@ -48,6 +48,7 @@ public class MecanicalElectrolyzerBlock extends DirectionalKineticBlock implemen
         return super.getStateForPlacement(context).setValue(H_FACING, context.getHorizontalDirection().getOpposite());
     }
 
+
     @Override
     public boolean hasShaftTowards(LevelReader world, BlockPos pos, BlockState state, Direction face) {
         return face.getAxis() == Direction.Axis.Y;
@@ -83,5 +84,10 @@ public class MecanicalElectrolyzerBlock extends DirectionalKineticBlock implemen
                 electrolyzerBlockEntity.tick(level,pos,state, (MecanicalElectrolyzerBlockEntity) blockEntity);
             }
         };
+    }
+
+    @Override
+    public boolean useShapeForLightOcclusion(BlockState p_60576_) {
+        return true;
     }
 }

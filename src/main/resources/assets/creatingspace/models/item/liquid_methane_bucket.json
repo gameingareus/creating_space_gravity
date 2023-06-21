@@ -1,9 +1,7 @@
 {
-  "parent": "forge:item/bucket",
-  "loader": "forge:fluid_container",
+  "parent": "minecraft:item/generated",
   "textures":{
-    "base": "minecraft:item/bucket",
-    "fluid":"creatingspace:items/buckets/drip_lch4"
-  },
-  "fluid": "creatingspace:liquid_methane"
+    "layer0":"minecraft:item/bucket",
+    "layer1":"creatingspace:items/buckets/methane_bucket_drip"
+  }
 }

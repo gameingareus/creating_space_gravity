@@ -1,0 +1,11 @@
+{
+  "type": "creatingspace:space",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "lakes": false,
+      "features": false,
+      "layers": []
+    }
+  }
+}
