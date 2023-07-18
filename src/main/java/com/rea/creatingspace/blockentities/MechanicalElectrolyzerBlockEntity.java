@@ -1,12 +1,9 @@
 package com.rea.creatingspace.blockentities;
 
-import com.rea.creatingspace.blocks.MecanicalElectrolyzerBlock;
-import com.rea.creatingspace.init.BlockEntityInit;
+import com.rea.creatingspace.blocks.MechanicalElectrolyzerBlock;
 import com.rea.creatingspace.init.FluidInit;
 import com.simibubi.create.content.equipment.goggles.IHaveGoggleInformation;
 import com.simibubi.create.content.kinetics.base.KineticBlockEntity;
-import com.simibubi.create.content.kinetics.speedController.SpeedControllerBlock;
-import com.simibubi.create.foundation.fluid.SmartFluidTank;
 import com.simibubi.create.foundation.utility.Lang;
 import com.simibubi.create.foundation.utility.LangBuilder;
 import net.minecraft.ChatFormatting;
@@ -14,18 +11,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.IFluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.templates.FluidTank;
 import org.jetbrains.annotations.NotNull;
@@ -35,9 +28,9 @@ import java.util.List;
 
 import static java.lang.Math.abs;
 
-public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
+public class MechanicalElectrolyzerBlockEntity extends KineticBlockEntity implements IHaveGoggleInformation {
 
-    public MecanicalElectrolyzerBlockEntity(BlockEntityType<?> type,BlockPos pos, BlockState state) {
+    public MechanicalElectrolyzerBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type,pos, state);
     }
     @Override
@@ -107,7 +100,7 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
 
         if (cap == ForgeCapabilities.FLUID_HANDLER){
-            Direction localDir = this.getBlockState().getValue(MecanicalElectrolyzerBlock.H_FACING);
+            Direction localDir = this.getBlockState().getValue(MechanicalElectrolyzerBlock.H_FACING);
             if (!(side == Direction.DOWN || side == Direction.UP || side == null)) {
                 if (localDir == side.getOpposite()) {
                     return this.waterFluidOptional.cast();
@@ -124,7 +117,7 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
     }
 
 
-    public void tick(Level level, BlockPos pos, BlockState state, MecanicalElectrolyzerBlockEntity blockEntity) {
+    public void tick(Level level, BlockPos pos, BlockState state, MechanicalElectrolyzerBlockEntity blockEntity) {
 
         if (!level.isClientSide()) {
             if (syncCooldown > 0) {
@@ -141,7 +134,7 @@ public class MecanicalElectrolyzerBlockEntity extends KineticBlockEntity impleme
             }
         }
     }
-    private boolean hasRecipe(MecanicalElectrolyzerBlockEntity blockEntity) {
+    private boolean hasRecipe(MechanicalElectrolyzerBlockEntity blockEntity) {
         float rot_speed = this.getSpeed();
         boolean isRunning = !blockEntity.isOverStressed();
         boolean enoughWater = blockEntity.WATER_TANK.getFluidAmount()>waterConsumption(rot_speed);

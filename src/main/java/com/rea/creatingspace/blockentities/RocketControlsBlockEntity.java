@@ -29,6 +29,7 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
     protected AssemblyException lastException;
 
     private boolean assembleNextTick = false;
+    private ResourceKey<Level> destination;
 
     public HashMap<String,BlockPos> initialPosMap = new HashMap<>();
 
@@ -56,8 +57,9 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
         return lastException;
     }
 
-    public void queueAssembly() {
+    public void queueAssembly(ResourceKey<Level> destination) {
         this.assembleNextTick = true;
+        this.destination = destination;
     }
 
     private void assemble() {
@@ -87,15 +89,9 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
 
         contraption.removeBlocksFromWorld(level, BlockPos.ZERO);
 
-
-        ResourceKey<Level> destination;
-        if (level.dimension() == Level.OVERWORLD){
-                destination = DimensionInit.EARTH_ORBIT_KEY;
-            }else {
-                destination = Level.OVERWORLD;
+        if (destination == null){
+            destination = Level.OVERWORLD;
         }
-
-
 
         RocketContraptionEntity rocketContraptionEntity = RocketContraptionEntity.create(level, contraption, destination);
         BlockPos anchor = worldPosition;

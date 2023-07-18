@@ -1,10 +1,8 @@
 package com.rea.creatingspace.dimension;
 
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.data.worldgen.Carvers;
-import net.minecraft.data.worldgen.biome.OverworldBiomes;
 import net.minecraft.data.worldgen.placement.MiscOverworldPlacements;
 import net.minecraft.data.worldgen.placement.NetherPlacements;
 import net.minecraft.data.worldgen.placement.OrePlacements;
@@ -14,8 +12,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.*;
 import net.minecraft.world.level.levelgen.GenerationStep;
-
-import java.util.Optional;
 
 
 public class MoonDimension {//will not be added imediatly, it's just an exemple for the moon -> need first to add regolith to the blocks
@@ -43,8 +39,45 @@ public class MoonDimension {//will not be added imediatly, it's just an exemple 
                 .addMobCharge(EntityType.STRIDER, 0.7D, 0.15D)
                 .build();
 
-        BiomeGenerationSettings.Builder biomegenerationsettings$builder = (new BiomeGenerationSettings.Builder()).addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE).addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, MiscOverworldPlacements.SPRING_LAVA).addFeature(GenerationStep.Decoration.LOCAL_MODIFICATIONS, NetherPlacements.BASALT_PILLAR).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_OPEN).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_FIRE).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_SOUL_FIRE).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE_EXTRA).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.GLOWSTONE).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.PATCH_CRIMSON_ROOTS).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_MAGMA).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, NetherPlacements.SPRING_CLOSED).addFeature(GenerationStep.Decoration.UNDERGROUND_DECORATION, OrePlacements.ORE_SOUL_SAND);
+        BiomeGenerationSettings.Builder biomegenerationsettings$builder =
+                (new BiomeGenerationSettings.Builder())
+                        .addCarver(GenerationStep.Carving.AIR, Carvers.NETHER_CAVE)
+                        .addFeature(
+                                GenerationStep.Decoration.VEGETAL_DECORATION,
+                                MiscOverworldPlacements.SPRING_LAVA)
+                        .addFeature(
+                                GenerationStep.Decoration.LOCAL_MODIFICATIONS,
+                                NetherPlacements.BASALT_PILLAR)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.SPRING_OPEN)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.PATCH_FIRE)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.PATCH_SOUL_FIRE)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.GLOWSTONE_EXTRA)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.GLOWSTONE)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.PATCH_CRIMSON_ROOTS)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                OrePlacements.ORE_MAGMA)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                NetherPlacements.SPRING_CLOSED)
+                        .addFeature(
+                                GenerationStep.Decoration.UNDERGROUND_DECORATION,
+                                OrePlacements.ORE_SOUL_SAND);
+
         BiomeDefaultFeatures.addNetherDefaultOres(biomegenerationsettings$builder);
+
         return (new Biome.BiomeBuilder())
                 .precipitation(Biome.Precipitation.NONE)
                 .temperature(2.0F)

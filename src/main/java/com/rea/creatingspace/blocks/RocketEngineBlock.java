@@ -1,6 +1,5 @@
 package com.rea.creatingspace.blocks;
 
-import com.rea.creatingspace.blockentities.ChemicalSynthesizerBlockEntity;
 import com.rea.creatingspace.blockentities.RocketEngineBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
 import com.simibubi.create.foundation.utility.Couple;

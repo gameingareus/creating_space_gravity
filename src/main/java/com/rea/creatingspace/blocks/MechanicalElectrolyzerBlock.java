@@ -1,8 +1,7 @@
 package com.rea.creatingspace.blocks;
 
 
-import com.rea.creatingspace.blockentities.MecanicalElectrolyzerBlockEntity;
-import com.rea.creatingspace.blockentities.RocketStarterBlockEntity;
+import com.rea.creatingspace.blockentities.MechanicalElectrolyzerBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
 import com.simibubi.create.content.kinetics.base.DirectionalKineticBlock;
 import com.simibubi.create.foundation.block.IBE;
@@ -12,21 +11,16 @@ import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.EntityBlock;
-import net.minecraft.world.level.block.Mirror;
-import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.block.state.properties.AttachFace;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import org.jetbrains.annotations.Nullable;
 
-public class MecanicalElectrolyzerBlock extends DirectionalKineticBlock implements IBE<MecanicalElectrolyzerBlockEntity> {
-    public MecanicalElectrolyzerBlock(Properties properties) {
+public class MechanicalElectrolyzerBlock extends DirectionalKineticBlock implements IBE<MechanicalElectrolyzerBlockEntity> {
+    public MechanicalElectrolyzerBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(this.defaultBlockState()
                 .setValue(FACING, Direction.NORTH)//only for the Axis
@@ -60,12 +54,12 @@ public class MecanicalElectrolyzerBlock extends DirectionalKineticBlock implemen
         }
 
     @Override
-    public Class<MecanicalElectrolyzerBlockEntity> getBlockEntityClass() {
-        return MecanicalElectrolyzerBlockEntity.class;
+    public Class<MechanicalElectrolyzerBlockEntity> getBlockEntityClass() {
+        return MechanicalElectrolyzerBlockEntity.class;
     }
 
     @Override
-    public BlockEntityType<? extends MecanicalElectrolyzerBlockEntity> getBlockEntityType() {
+    public BlockEntityType<? extends MechanicalElectrolyzerBlockEntity> getBlockEntityType() {
         return BlockEntityInit.ELECTROLIZER.get();
     }
 
@@ -80,8 +74,8 @@ public class MecanicalElectrolyzerBlock extends DirectionalKineticBlock implemen
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
         return level.isClientSide() ? null : ($0,pos,$1,blockEntity) -> {
-            if(blockEntity instanceof MecanicalElectrolyzerBlockEntity electrolyzerBlockEntity) {
-                electrolyzerBlockEntity.tick(level,pos,state, (MecanicalElectrolyzerBlockEntity) blockEntity);
+            if(blockEntity instanceof MechanicalElectrolyzerBlockEntity electrolyzerBlockEntity) {
+                electrolyzerBlockEntity.tick(level,pos,state, (MechanicalElectrolyzerBlockEntity) blockEntity);
             }
         };
     }

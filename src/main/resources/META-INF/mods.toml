@@ -6,10 +6,10 @@ license="MIT"
 
 [[mods]]
 modId="creatingspace"
-version="1.2"
+version="1.3"
 displayName="Creating Space"
 logoFile="logo.jpg"
-credits="above and beyond modpack for the logo"
+credits=""
 authors="Real Ant Engineer"
 
 description='''

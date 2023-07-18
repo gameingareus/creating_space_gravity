@@ -1,15 +1,12 @@
 package com.rea.creatingspace.blocks;
 
-import com.rea.creatingspace.blockentities.ChemicalSynthesizerBlockEntity;
 import com.rea.creatingspace.blockentities.FlowGaugeBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
-
 import com.simibubi.create.content.fluids.FluidPropagator;
-import com.simibubi.create.content.fluids.pipes.*;
+import com.simibubi.create.content.fluids.pipes.IAxisPipe;
 import com.simibubi.create.content.kinetics.base.KineticBlock;
 import com.simibubi.create.foundation.advancement.AdvancementBehaviour;
 import com.simibubi.create.foundation.block.IBE;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.protocol.game.DebugPackets;
@@ -20,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;

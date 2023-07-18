@@ -1,14 +1,13 @@
 package com.rea.creatingspace.contraption;
 
+import com.rea.creatingspace.blockentities.RocketEngineBlockEntity;
 import com.rea.creatingspace.init.BlockInit;
 import com.simibubi.create.AllBlocks;
 import com.simibubi.create.content.contraptions.AssemblyException;
 import com.simibubi.create.content.contraptions.ContraptionType;
-import com.simibubi.create.content.contraptions.StructureTransform;
 import com.simibubi.create.content.contraptions.TranslatingContraption;
 import com.simibubi.create.content.contraptions.render.ContraptionLighter;
 import com.simibubi.create.content.contraptions.render.NonStationaryLighter;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -42,12 +41,12 @@ public class RocketContraption extends TranslatingContraption {
         Block blockAdded = pair.getLeft().state.getBlock();
         if (blockAdded.defaultBlockState()== BlockInit.SMALL_ROCKET_ENGINE.getDefaultState()){
             this.trust += 10000;
-            this.propellantConsumption += 100;
+            this.propellantConsumption += 10000/(300*9.81*20)*50;
         }
         if (blockAdded.defaultBlockState()== AllBlocks.FLUID_TANK.getDefaultState()){
-            this.dryMass += 20 ;//look on a json file the density ?
+            this.dryMass += 20;//look on a json file the density ?
         } else {
-            this.dryMass += 1000 ;
+            this.dryMass += 1000;
         }
 
         super.addBlock(pos, pair);
@@ -79,6 +78,6 @@ public class RocketContraption extends TranslatingContraption {
         return this.trust;
     }
     public int getPropellantConsumption(){
-        return this.propellantConsumption;
+        return  this.propellantConsumption;
     }
 }

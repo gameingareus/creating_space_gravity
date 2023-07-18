@@ -1,29 +1,31 @@
 package com.rea.creatingspace.blocks;
 
-import com.rea.creatingspace.blockentities.GroundBuilderBlockEntity;
 import com.rea.creatingspace.blockentities.RocketControlsBlockEntity;
 import com.rea.creatingspace.init.BlockEntityInit;
-//import com.rea.creatingspace.menus.RocketControlsMenu;
 import com.rea.creatingspace.screen.DestinationScreen;
-import com.simibubi.create.content.trains.station.StationBlockEntity;
+import com.simibubi.create.AllItems;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.gui.ScreenOpener;
-import net.minecraft.client.gui.screens.Screen;
+
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Mirror;
+import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -31,6 +33,8 @@ import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.Nullable;
 
 public class RocketControlsBlock extends Block implements IBE<RocketControlsBlockEntity> {
@@ -42,15 +46,13 @@ public class RocketControlsBlock extends Block implements IBE<RocketControlsBloc
 
     @Override
     public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hitResult) {
-        if (!level.isClientSide()){
-            if (player.getItemInHand(hand).isEmpty()){
-                if (level.getBlockEntity(pos) instanceof RocketControlsBlockEntity controlsBlock) {
-                    controlsBlock.queueAssembly();
-
-                    return InteractionResult.SUCCESS;
-                }
-            }
+        ItemStack held = player.getMainHandItem();
+        if (held.isEmpty()){
+            DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
+                    () -> () -> withBlockEntityDo(level, pos, be -> this.displayScreen(be, player)));
+            return InteractionResult.SUCCESS;
         }
+
         return InteractionResult.PASS;
     }
     @OnlyIn(value = Dist.CLIENT)
@@ -75,10 +77,14 @@ public class RocketControlsBlock extends Block implements IBE<RocketControlsBloc
     //blockstate
 
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
+    public static final BooleanProperty ASSEMBLE_NEXT_TICK = BooleanProperty.create("assemble_next_tick");;
+
 
     @Override
     public BlockState getStateForPlacement(BlockPlaceContext context) {
-        return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
+        return this.defaultBlockState()
+                .setValue(FACING, context.getHorizontalDirection().getOpposite())
+                .setValue(ASSEMBLE_NEXT_TICK,false);
     }
 
     @Override
@@ -94,6 +100,7 @@ public class RocketControlsBlock extends Block implements IBE<RocketControlsBloc
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+        builder.add(ASSEMBLE_NEXT_TICK);
     }
 
 

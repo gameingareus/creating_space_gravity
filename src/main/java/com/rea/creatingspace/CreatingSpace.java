@@ -1,22 +1,12 @@
 package com.rea.creatingspace;
 
 import com.rea.creatingspace.init.*;
-//import com.rea.creatingspace.screen.ChemicalSynthesizerScreen;
-import com.simibubi.create.AllBlocks;
 import com.simibubi.create.foundation.data.CreateRegistrate;
-//import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-
 
 @Mod(CreatingSpace.MODID)
 
@@ -37,8 +27,6 @@ public class CreatingSpace {
         EntityInit.register();
         FluidInit.register();
 
-
-
         DimensionInit.register();
 
         PaintingInit.register(bus);
@@ -46,10 +34,14 @@ public class CreatingSpace {
         PlacedFeatureInit.register(bus);
         //MenuInit.MENUS.register(bus);
 
+        PonderInit.register();
+
         bus.addListener(CreatingSpace::init);
+        bus.register(DimensionEffectInit.class);
 
     }
     public static void init(final FMLCommonSetupEvent event) {
+        PacketInit.registerPackets();
 
         event.enqueueWork(() -> {
 

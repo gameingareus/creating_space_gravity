@@ -1,14 +1,12 @@
 package com.rea.creatingspace.init;
 
 import com.rea.creatingspace.AllCreativeModeTabs;
-//import com.rea.creatingspace.base.ModArmorMaterial;
-//import com.rea.creatingspace.items.AdvancedItem;
 import com.simibubi.create.foundation.item.CombustibleItem;
 import com.tterrag.registrate.util.entry.ItemEntry;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
 
 import static com.rea.creatingspace.CreatingSpace.REGISTRATE;
 
@@ -16,7 +14,7 @@ public class ItemInit {
     //component
     public static final ItemEntry<Item> INJECTOR = REGISTRATE.item(
             "injector",Item::new)
-            .properties(p->p.tab(AllCreativeModeTabs.COMPONENT_TAB))
+            .properties(p -> p.tab(AllCreativeModeTabs.COMPONENT_TAB))
             .register();
 
     public static final ItemEntry<Item> INCOMPLETE_INJECTOR = REGISTRATE.item(

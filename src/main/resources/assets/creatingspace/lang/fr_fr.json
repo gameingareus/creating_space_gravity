@@ -1,0 +1,69 @@
+{
+  "block.creatingspace.small_rocket_engine": "Petit Moteur Fusée",
+  "block.creatingspace.rocket_controls": "Controleur de fusée",
+  "block.creatingspace.explosive_starter": "Démarreur exlosif",
+  "block.creatingspace.chemical_synthesizer": "Synthetiseur chimique",
+  "block.creatingspace.mechanical_electrolyzer": "Electrolyser méchanique",
+  "block.creatingspace.flow_meter": "Débitmètre",
+
+  "block.creatingspace.clamps": "Pince",
+
+  "block.creatingspace.moon_stone": "Roche Lunaire",
+  "block.creatingspace.moon_regolith": "Regolithe Lunaire",
+
+
+  "block.creatingspace.nickel_ore": "Minerai de Nickel",
+  "block.creatingspace.deepslate_nickel_ore": "Minerai de Nickel des Abimes",
+  "block.creatingspace.raw_nickel_block": "Bloc de Nickel Brute",
+
+  "item.creatingspace.injector": "Injecteur",
+  "item.creatingspace.incomplete_injector": "Injecteur Incomplet",
+  "item.creatingspace.injector_grid": "Grille d'injecteur",
+  "item.creatingspace.incomplete_injector_grid": "Grille d'injecteur Incomplète",
+  "item.creatingspace.starter_charge": "Charge de démarreur",
+  "item.creatingspace.sturdy_propeller": "Turbine résistante",
+  "item.creatingspace.combustion_chamber": "Chambre de Combustion",
+  "item.creatingspace.bell_nozzle": "Tuyère en Cloche ",
+  "item.creatingspace.copper_coil":"Bobine de cuivre",
+  "item.creatingspace.basic_catalyst":"Catalyseur Basic",
+
+
+  "item.creatingspace.nickel_ingot": "Lingot de Nickel",
+  "item.creatingspace.nickel_nugget": "Nickel Nugget",
+  "item.creatingspace.nickel_sheet": "Plaque de Nickel",
+  "item.creatingspace.crushed_nickel_ore": "Minerai de Nickel Concassé",
+  "item.creatingspace.raw_nickel": "Nickel Brut",
+  "item.creatingspace.nickel_dust":"Poudre de Nickel",
+  "item.creatingspace.coal_dust": "Poudre de Charbon",
+
+  "item.creatingspace.liquid_methane_bucket": "Seau de Méthane Liquide",
+  "item.creatingspace.liquid_oxygen_bucket": "Seau d'Oxygène Liquide",
+  "item.creatingspace.liquid_hydrogen_bucket": "Seau d'Hydrogène Liquide",
+
+  "fluid.creatingspace.liquid_methane" : "Méthane Liquide",
+  "fluid.creatingspace.liquid_oxygen" : "Oxygène Liquide",
+  "fluid.creatingspace.liquid_hydrogen" : "Hydrogène Liquide",
+
+  "item.creatingspace.space_food": "Space Food",
+
+  "itemGroup.machine_tab": "Machine",
+  "itemGroup.component_tab": "Composant",
+  "itemGroup.minerals_tab": "Minéraux",
+
+  "container.creatingspace.rocket_controls": "Rocket Controls",
+  "container.creatingspace.synthesizer": "Synthesizer",
+
+  "creatingspace.ponder.rocket.header": "Fusée",
+    "creatingspace.ponder.rocket.text_1": "Controleur de fusée",
+  "creatingspace.ponder.rocket.text_2": "N'oubliez pas les sièges où vous serrer laisser derrière",
+  "creatingspace.ponder.rocket.text_3": "Remplissez les réservoirs et vous pouvez partir",
+
+  "creatingspace.ponder.synthesizer.header": "Fabriquer du Méthane",
+
+  "creatingspace.launch": "Lancement",
+  "creatingspace:earth_orbit": "Orbite Terrestre",
+  "creatingspace:moon_orbit": "Orbite Lunaire",
+  "creatingspace:the_moon": "La Lune",
+  "minecraft:overworld": "La Terre"
+
+}

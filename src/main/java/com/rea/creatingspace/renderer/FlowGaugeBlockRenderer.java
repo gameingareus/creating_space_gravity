@@ -38,7 +38,7 @@ public class FlowGaugeBlockRenderer extends SafeBlockEntityRenderer<FlowGaugeBlo
         ms.pushPose();
 
         CachedBufferer.partial(AllPartialModels.GAUGE_DIAL, blockState)
-                .rotateY(direction.getClockWise().toYRot())
+                .rotateY(((-direction.toYRot() - 90) ))
                 .unCentre()
                 .translate((double) -1 /16, 0, 0)
                 .translate(0, dialPivot, dialPivot)

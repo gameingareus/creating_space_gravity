@@ -1,7 +1,6 @@
 package com.rea.creatingspace.blockentities;
 
 import com.rea.creatingspace.blocks.ChemicalSynthesizerBlock;
-import com.rea.creatingspace.init.BlockEntityInit;
 import com.rea.creatingspace.init.FluidInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

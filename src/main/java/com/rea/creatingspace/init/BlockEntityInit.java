@@ -1,11 +1,12 @@
 package com.rea.creatingspace.init;
 
 import com.rea.creatingspace.blockentities.*;
+import com.rea.creatingspace.renderer.FlowGaugeBlockRenderer;
 import com.rea.creatingspace.renderer.MechanicalElectrolyserBlockRenderer;
 import com.rea.creatingspace.renderer.RocketStarterBlockRenderer;
-import com.rea.creatingspace.renderer.FlowGaugeBlockRenderer;
-import com.tterrag.registrate.util.entry.BlockEntityEntry;
 import com.simibubi.create.content.kinetics.base.ShaftInstance;
+import com.tterrag.registrate.util.entry.BlockEntityEntry;
+
 import static com.rea.creatingspace.CreatingSpace.REGISTRATE;
 
 public class BlockEntityInit {
@@ -14,10 +15,10 @@ public class BlockEntityInit {
             .validBlocks(BlockInit.ROCKET_CONTROLS)
             .register();
 
-    public static final BlockEntityEntry<GroundBuilderBlockEntity> GROUND_STATION =
+    /*public static final BlockEntityEntry<GroundBuilderBlockEntity> GROUND_STATION =
             REGISTRATE.blockEntity("station", GroundBuilderBlockEntity::new)
                     .validBlocks(BlockInit.GROUND_STATION)
-                    .register();
+                    .register();*/
 
     public static final BlockEntityEntry<RocketStarterBlockEntity> STARTER =
             REGISTRATE.blockEntity("starter", RocketStarterBlockEntity::new )
@@ -38,9 +39,9 @@ public class BlockEntityInit {
                     .register();
 
 
-    public static final BlockEntityEntry<MecanicalElectrolyzerBlockEntity> ELECTROLIZER =
+    public static final BlockEntityEntry<MechanicalElectrolyzerBlockEntity> ELECTROLIZER =
             REGISTRATE.blockEntity(
-                    "electrolizer", MecanicalElectrolyzerBlockEntity::new)
+                    "electrolizer", MechanicalElectrolyzerBlockEntity::new)
                     .instance(()-> ShaftInstance::new)
                     .validBlocks( BlockInit.MECHANICAL_ELECTROLYZER)
                     .renderer(()-> MechanicalElectrolyserBlockRenderer::new)

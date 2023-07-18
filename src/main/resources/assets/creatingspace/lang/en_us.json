@@ -4,8 +4,13 @@
   "block.creatingspace.explosive_starter": "Explosive Starter",
   "block.creatingspace.chemical_synthesizer": "Chemical Synthesizer",
   "block.creatingspace.mechanical_electrolyzer": "Mechanical Electrolyzer",
+  "block.creatingspace.flow_meter": "Flowmeter",
 
   "block.creatingspace.clamps": "Clamps",
+
+  "block.creatingspace.moon_stone": "Moon Stone",
+  "block.creatingspace.moon_regolith": "Moon Regolith",
+
 
   "block.creatingspace.nickel_ore": "Nickel Ore",
   "block.creatingspace.deepslate_nickel_ore": "Deepslate Nickel Ore",
@@ -29,6 +34,7 @@
   "item.creatingspace.crushed_nickel_ore": "Crushed Nickel Ore",
   "item.creatingspace.raw_nickel": "Raw Nickel",
   "item.creatingspace.nickel_dust":"Nickel Dust",
+  "item.creatingspace.coal_dust": "Coal Dust",
 
   "item.creatingspace.liquid_methane_bucket": "Bucket of Liquid Methane",
   "item.creatingspace.liquid_oxygen_bucket": "Bucket of Liquid Oxygen",
@@ -38,14 +44,6 @@
   "fluid.creatingspace.liquid_oxygen" : "Liquid Oxygen",
   "fluid.creatingspace.liquid_hydrogen" : "Liquid Hydrogen",
 
-
-
-  "item.creatingspace.generic_armor_head":" Generic Armor Helmet",
-  "item.creatingspace.generic_armor_chest":" Generic Armor Chestplate",
-  "item.creatingspace.generic_armor_legs":" Generic Armor Leggings",
-  "item.creatingspace.generic_armor_feet":" Generic Armor Boots",
-
-
   "item.creatingspace.space_food": "Space Food",
 
   "itemGroup.machine_tab": "Machine Tab",
@@ -53,5 +51,21 @@
   "itemGroup.minerals_tab": "Minerals Tab",
 
   "container.creatingspace.rocket_controls": "Rocket Controls",
-  "container.creatingspace.synthesizer": "Synthesizer"
+  "container.creatingspace.synthesizer": "Synthesizer",
+
+  "creatingspace.ponder.rocket.header": "Rockets",
+  "creatingspace.ponder.rocket.text_1": "Rocket Controls",
+  "creatingspace.ponder.rocket.text_2": "Don't forget the seat or you will be left Behind",
+  "creatingspace.ponder.rocket.text_3": "Fill the tanks and your are ready",
+
+  "creatingspace.ponder.synthesizer.header": "Crafting Methane",
+  "creatingspace.ponder.synthesizer.text_1": "You need to put hydrogen in it...",
+  "creatingspace.ponder.synthesizer.text_2": "...And put coal dust, then wait for methane to be produced",
+  "creatingspace.ponder.synthesizer.text_3": "It produces 100mb of methane every 4 seconds",
+
+  "creatingspace.launch": "Launch",
+  "creatingspace:earth_orbit": "Earth Orbit",
+  "creatingspace:moon_orbit": "Moon Orbit",
+  "creatingspace:the_moon": "The Moon",
+  "minecraft:overworld": "The Earth"
 }

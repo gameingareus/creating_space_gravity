@@ -27,7 +27,7 @@ public class CustomTeleporter implements ITeleporter {
     public @Nullable PortalInfo getPortalInfo(Entity entity, ServerLevel destWorld, Function<ServerLevel, PortalInfo> defaultPortalInfo) {
         if ( entity instanceof RocketContraptionEntity rocketContraptionEntity){
             double height;
-            if (destWorld.dimensionTypeId() == DimensionInit.SPACE_TYPE){
+            if (destWorld.dimensionTypeId() == DimensionInit.EARTH_ORBIT_TYPE){
                 height = DimensionInit.SpaceSpawnHeight;
             }else{
                 height = DimensionInit.PlanetSpawnHeight;

@@ -1,21 +1,13 @@
 package com.rea.creatingspace.blockentities;
 
-import com.rea.creatingspace.CreatingSpace;
 import com.rea.creatingspace.blocks.ChemicalSynthesizerBlock;
-import com.rea.creatingspace.init.BlockEntityInit;
 import com.rea.creatingspace.init.FluidInit;
 import com.rea.creatingspace.init.ItemInit;
-//import com.rea.creatingspace.menus.ChemicalSynthesizerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.Containers;
-import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -35,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements MenuProvider*/ {
 
-    //doesn't load item with a hopper, put unload them and work both way with Create's funnel so no problem
+    //doesn't load item with a hopper, but unload them and work both way with Create's funnel so no problem
     private final ItemStackHandler inventory = new ItemStackHandler(1){
         @Override
         protected void onContentsChanged(int slot) {
@@ -55,10 +47,8 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
 
     private final LazyOptional<IItemHandlerModifiable> itemOptional = LazyOptional.of(() -> this.inventory);
 
-
-
     private int progress = 0;
-    private int maxProgress = 78;
+    private int maxProgress = 80;
 
     public ChemicalSynthesizerBlockEntity(BlockEntityType<?> type,BlockPos pos, BlockState state) {
         super(type,pos, state);
@@ -88,9 +78,11 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
 
     private static void craftFluid(ChemicalSynthesizerBlockEntity synthesizerBlockEntity) {
         if(hasRecipe(synthesizerBlockEntity)) {
+            //System.out.print(synthesizerBlockEntity.METHANE_TANK.getFluidAmount());
             synthesizerBlockEntity.inventory.extractItem(0,1,false);
-            synthesizerBlockEntity.HYDROGEN_TANK.drain(new FluidStack(FluidInit.LIQUID_HYDROGEN.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
-            synthesizerBlockEntity.METHANE_TANK.fill(new FluidStack(FluidInit.LIQUID_METHANE.get().getSource(),100), IFluidHandler.FluidAction.EXECUTE);
+            synthesizerBlockEntity.HYDROGEN_TANK.drain(100,IFluidHandler.FluidAction.EXECUTE);
+            synthesizerBlockEntity.METHANE_TANK.fill(new FluidStack(FluidInit.LIQUID_METHANE.get(),100), IFluidHandler.FluidAction.EXECUTE);
+            //System.out.print(synthesizerBlockEntity.METHANE_TANK.isFluidValid(new FluidStack(FluidInit.LIQUID_METHANE.get(),100)));
             //synthesizerBlockEntity.fluidHandler.set...
             synthesizerBlockEntity.resetProgress();
         }
@@ -113,16 +105,16 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
     public void load(CompoundTag nbt) {
         super.load(nbt);
         inventory.deserializeNBT(nbt.getCompound("inventory"));
-        HYDROGEN_TANK.readFromNBT(nbt);
-        METHANE_TANK.readFromNBT(nbt);
+        HYDROGEN_TANK.setFluid(new FluidStack(FluidInit.LIQUID_HYDROGEN.get(), nbt.getInt("hydrogenAmount")));
+        METHANE_TANK.setFluid(new FluidStack(FluidInit.LIQUID_METHANE.get(), nbt.getInt("methaneAmount")));
     }
 
 
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         nbt.put("inventory", inventory.serializeNBT());
-        nbt = HYDROGEN_TANK.writeToNBT(nbt);
-        nbt = METHANE_TANK.writeToNBT(nbt);
+        nbt.putInt("hydrogenAmount", HYDROGEN_TANK.getFluidAmount());
+        nbt.putInt("methaneAmount", METHANE_TANK.getFluidAmount());
         super.saveAdditional(nbt);
     }
 
@@ -134,10 +126,6 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
         Containers.dropContents(this.level,this.worldPosition,inventory);
     }
 
-    /*@Override
-    public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == ForgeCapabilities.ITEM_HANDLER ? this.itemOptional.cast() : super.getCapability(cap, side);
-    }*/
 
     @Override
     public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
@@ -207,7 +195,7 @@ public class ChemicalSynthesizerBlockEntity extends BlockEntity /*implements Men
 
         @Override
         public boolean isFluidValid(FluidStack stack) {
-            return stack.getFluid() == FluidInit.LIQUID_HYDROGEN.get();
+            return stack.getFluid() == FluidInit.LIQUID_HYDROGEN.getSource();
         }
     };
 

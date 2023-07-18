@@ -9,7 +9,6 @@ import com.rea.creatingspace.utilities.CustomTeleporter;
 import com.simibubi.create.content.contraptions.AbstractContraptionEntity;
 import com.simibubi.create.content.contraptions.ContraptionCollider;
 import com.simibubi.create.content.contraptions.StructureTransform;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
@@ -26,7 +25,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-
 import net.minecraft.world.level.portal.PortalInfo;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
@@ -41,11 +39,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.List;
 
-import static com.google.common.primitives.Floats.*;
+import static com.google.common.primitives.Floats.constrainToRange;
 
 public class RocketContraptionEntity extends AbstractContraptionEntity {
-
-
     public BlockPos rocketEntryCoordinate = new BlockPos(0,0,0);
     public boolean reEntry = false;
     public boolean havePropellantsTanks = false;
@@ -127,7 +123,7 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
 
             if (this.havePropellantsTanks && !this.reEntry && !(o2mass == 0f || ch4mass == 0f)) {
 
-                acceleration = (this.dryMass + this.inertFluidsMass + o2mass + ch4mass - gravity) /20 ;
+                acceleration = (this.trust/(this.dryMass + this.inertFluidsMass + o2mass + ch4mass) - gravity) /20 ;
 
                 consumePropellant(this);
 
@@ -159,7 +155,7 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
 
                 ServerLevel destServerLevel = this.level.getServer().getLevel(this.destination);
 
-                if (destServerLevel!=null && level.dimension() == this.originDimension && this.entityData.get(SPEED_ENTITY_DATA_ACCESSOR) > 1.5 ) {
+                if (destServerLevel!=null && level.dimension() == this.originDimension && (this.entityData.get(SPEED_ENTITY_DATA_ACCESSOR) > 1.5 || DimensionInit.gravity(this.level.dimensionTypeId())==0)) {
                     this.changeDimension(destServerLevel,new CustomTeleporter(destServerLevel));
 
                 }
@@ -263,6 +259,8 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
                                 //adding previously riding passengers
                                 for (int i = 0; i < passengers.size(); i++) {
                                     Entity passenger = passengers.get(i);
+                                    passenger.moveTo(portalinfo.pos.x, portalinfo.pos.y, portalinfo.pos.z, portalinfo.yRot, passenger.getXRot());
+
                                     if (passenger instanceof ServerPlayer player) {
                                         player.changeDimension(destLevel, new CustomTeleporter(destLevel));
                                         entity.addSittingPassenger(player, i);
@@ -271,15 +269,12 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
                                             passenger.changeDimension(destLevel, new CustomTeleporter(destLevel));
                                             entity.addSittingPassenger(passenger, i);
                                         }
-                                        passenger.moveTo(portalinfo.pos.x, portalinfo.pos.y, portalinfo.pos.z, portalinfo.yRot, passenger.getXRot());
                                     }
-
-
                                 }
 
 
                                 destLevel.addDuringTeleport(entity);
-                                if ((entity instanceof RocketContraptionEntity)&& destLevel.dimensionTypeId() == DimensionInit.SPACE_TYPE){
+                                if ((entity instanceof RocketContraptionEntity)&& destLevel.dimensionTypeId() == DimensionInit.EARTH_ORBIT_TYPE){
                                     entity.disassemble();
                                 }
                                 else{
