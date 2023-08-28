@@ -1,7 +1,7 @@
 {
   "type": "minecraft:smelting",
   "ingredient": {
-    "item": "creatingspace:cobalt_ore"
+    "item": "creatingspace:cobalt_moon_ore"
   },
   "result": "creatingspace:cobalt_ingot",
   "cookingtime": 40

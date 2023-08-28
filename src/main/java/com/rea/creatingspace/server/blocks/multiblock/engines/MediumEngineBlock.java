@@ -65,7 +65,7 @@ public class MediumEngineBlock extends RocketEngineBlock implements IBE<RocketEn
 	@Override
 	public InteractionResult onActivate(BlockState state, Level level, BlockPos pos, Player player,
 			InteractionHand hand, BlockHitResult pHit) {
-
+		System.out.println("activated");
 		//switch from an active to a passive state
 		return level.getBlockEntity(pos, BlockEntityInit.MEDIUM_ENGINE.get()).map(te -> te.onClick(state,pos,player, hand)).orElse(InteractionResult.PASS);
 	}

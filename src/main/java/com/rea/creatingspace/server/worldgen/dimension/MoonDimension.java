@@ -19,12 +19,8 @@ public class MoonDimension {
                         MobCategory.MONSTER,
                         new MobSpawnSettings
                                 .SpawnerData(EntityType.SKELETON, 20, 5, 5))
-                .addSpawn(
-                        MobCategory.MONSTER,
-                        new MobSpawnSettings.SpawnerData(EntityType.ENDERMAN, 1, 4, 4))
 
                 .addMobCharge(EntityType.SKELETON, 0.7D, 0.15D)
-                .addMobCharge(EntityType.ENDERMAN, 0.7D, 0.15D)
                 .build();
 
         BiomeGenerationSettings.Builder biomegenerationsettings$builder =

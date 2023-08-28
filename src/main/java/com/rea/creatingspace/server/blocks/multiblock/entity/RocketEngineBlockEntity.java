@@ -30,13 +30,10 @@ public abstract class RocketEngineBlockEntity extends MultiblockBlockEntity impl
         super.load(nbt);
 
     }
-
-
     @Override
     protected void saveAdditional(CompoundTag nbt) {
         super.saveAdditional(nbt);
     }
-
 
     @Override
     public <T> LazyOptional<T> getCaps(Capability<T> cap, IOBlockType type) {
@@ -63,10 +60,11 @@ public abstract class RocketEngineBlockEntity extends MultiblockBlockEntity impl
 
         @Override
         public int getTrust() {
-            return 5000000;
+            return (int) (5000000/9.81);
         }
 
         public InteractionResult onClick(BlockState state,BlockPos pos,Player player, InteractionHand hand) {
+            System.out.println("onClick");
             if (!level.isClientSide() && player.getItemInHand(hand).isEmpty()){
                 level.setBlock(pos, state.cycle(MediumEngineBlock.ACTIVE), 3);
             }
@@ -87,14 +85,14 @@ public abstract class RocketEngineBlockEntity extends MultiblockBlockEntity impl
 
         @Override
         public int getTrust() {
-            return 100000;
+            return (int) (100000/9.81);
         }
 
         public InteractionResult onClick(BlockState state,BlockPos pos,Player player, InteractionHand hand) {
+            System.out.println("onClick");
             if (!level.isClientSide() && player.getItemInHand(hand).isEmpty()){
                 level.setBlock(pos, state.cycle(SmallEngineBlock.ACTIVE), 3);
             }
-
 
             return InteractionResult.PASS;
         }

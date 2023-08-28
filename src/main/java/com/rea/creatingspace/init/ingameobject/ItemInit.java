@@ -26,7 +26,6 @@ public class ItemInit {
 
     public static final ItemEntry<Item> INCOMPLETE_INJECTOR = REGISTRATE.item(
             "incomplete_injector",Item::new)
-            .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
     public static final ItemEntry<Item> INJECTOR_GRID = REGISTRATE.item(

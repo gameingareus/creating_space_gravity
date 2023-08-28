@@ -61,7 +61,7 @@ public class DimensionInit {
             return List.of(Level.OVERWORLD,MOON_ORBIT_KEY);
         }
         if (currentDimension == MOON_ORBIT_KEY){
-            return List.of(EARTH_ORBIT_KEY);
+            return List.of(EARTH_ORBIT_KEY,MOON_KEY);
         }
         if (currentDimension == MOON_KEY){
             return List.of(MOON_ORBIT_KEY);

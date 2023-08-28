@@ -1,5 +1,6 @@
 package com.rea.creatingspace.server.blocks;
 
+import com.rea.creatingspace.server.blockentities.MechanicalElectrolyzerBlockEntity;
 import com.rea.creatingspace.server.blockentities.RocketStarterBlockEntity;
 import com.rea.creatingspace.init.ingameobject.BlockEntityInit;
 import com.rea.creatingspace.init.ingameobject.ItemInit;
@@ -104,16 +105,10 @@ public class RocketStarterBlock extends DirectionalKineticBlock  implements IBE<
         if (!level.isClientSide) {
             if (level.hasNeighborSignal(pos) && state.getValue(CHARGED)) {
                 level.setBlock(pos,state.setValue(GENERATING,true),3);
-                level.scheduleTick(pos,this,200);
+                level.setBlock(pos,state.setValue(CHARGED,false),3);
             }
             this.getBlockEntity(level,pos).updateGeneratedRotation();
         }
-    }
-
-    public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource source) {
-        level.setBlock(pos,state.setValue(GENERATING,false).setValue(CHARGED,false),3);
-        this.getBlockEntity(level,pos).updateGeneratedRotation();
-
     }
     @Override
     public Class<RocketStarterBlockEntity> getBlockEntityClass() {
@@ -134,16 +129,14 @@ public class RocketStarterBlock extends DirectionalKineticBlock  implements IBE<
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-
-        return level.isClientSide() ? null : ($0, pos, $1, blockEntity) -> {
-            if (blockEntity instanceof RocketStarterBlockEntity starterBlockEntity) {
-                starterBlockEntity.tick();
+        return level.isClientSide() ? null : ($0,pos,$1,blockEntity) -> {
+            if(blockEntity instanceof RocketStarterBlockEntity starterBlockEntity) {
+                starterBlockEntity.tick(level,pos,state, (RocketStarterBlockEntity) blockEntity);
             }
-
         };
     }
     public static Couple<Integer> getSpeedRange() {
-        return Couple.create(0, 64);
+        return Couple.create(0, 256);
     }
 
     @Override

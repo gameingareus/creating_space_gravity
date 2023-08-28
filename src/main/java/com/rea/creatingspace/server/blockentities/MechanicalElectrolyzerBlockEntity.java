@@ -203,15 +203,15 @@ public class MechanicalElectrolyzerBlockEntity extends KineticBlockEntity implem
     }
 
     private int waterConsumption(float speed){
-        return  (int) (abs(speed)/10);
+        return  (int) (abs(speed)*18/100);
     }
 
     private int oxygenProduction(float speed){
-        return (int) (abs(speed)/10*0.88/FluidInit.LIQUID_OXYGEN.getType().getDensity()*1000);
+        return (int) (abs(speed)*14/100);
     }
 
     private int hydrogenProduction(float speed){
-        return (int) (abs(speed)/10*0.11/FluidInit.LIQUID_HYDROGEN.getType().getDensity()*1000);
+        return (int) (abs(speed)*28/100);
     }
 
 
