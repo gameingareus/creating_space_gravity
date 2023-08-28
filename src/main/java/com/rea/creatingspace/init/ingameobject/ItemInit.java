@@ -101,7 +101,7 @@ public class ItemInit {
 
     //minerals
 
-    //nickel
+    //nickel.json
     public static final ItemEntry<Item> RAW_NICKEL = REGISTRATE.item(
             "raw_nickel",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
