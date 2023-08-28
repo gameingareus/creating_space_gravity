@@ -1,6 +1,6 @@
 package com.rea.creatingspace.utilities.packet;
 
-import com.rea.creatingspace.blockentities.RocketControlsBlockEntity;
+import com.rea.creatingspace.server.blockentities.RocketControlsBlockEntity;
 import com.simibubi.create.foundation.networking.BlockEntityConfigurationPacket;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Registry;

@@ -1,6 +1,11 @@
 package com.rea.creatingspace;
 
 import com.rea.creatingspace.init.*;
+import com.rea.creatingspace.init.ingameobject.*;
+import com.rea.creatingspace.init.graphics.DimensionEffectInit;
+import com.rea.creatingspace.init.worldgen.*;
+import com.rea.creatingspace.server.event.CSEventHandler;
+import com.rea.creatingspace.server.event.OxygenSuffocationEvent;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -27,18 +32,19 @@ public class CreatingSpace {
         EntityInit.register();
         FluidInit.register();
 
-        DimensionInit.register();
+        DimensionInit.register(bus);
 
         PaintingInit.register(bus);
         ConfiguredFeatureInit.register(bus);
         PlacedFeatureInit.register(bus);
-        //MenuInit.MENUS.register(bus);
+        BiomesInit.register(bus);
+        NoiseInit.register(bus);
 
         PonderInit.register();
 
         bus.addListener(CreatingSpace::init);
-        bus.register(DimensionEffectInit.class);
 
+        bus.register(DimensionEffectInit.class);
     }
     public static void init(final FMLCommonSetupEvent event) {
         PacketInit.registerPackets();
@@ -46,6 +52,7 @@ public class CreatingSpace {
         event.enqueueWork(() -> {
 
             FluidInit.registerFluidInteractions();
+            FluidInit.registerOpenEndedEffect();
         });
     }
 

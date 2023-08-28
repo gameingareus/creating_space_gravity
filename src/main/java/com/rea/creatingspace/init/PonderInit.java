@@ -1,10 +1,10 @@
 package com.rea.creatingspace.init;
 
 import com.rea.creatingspace.CreatingSpace;
-import com.rea.creatingspace.ponders.FluidScene;
-import com.rea.creatingspace.ponders.RocketScene;
+import com.rea.creatingspace.init.ingameobject.BlockInit;
+import com.rea.creatingspace.client.ponders.FluidScene;
+import com.rea.creatingspace.client.ponders.RocketScene;
 import com.simibubi.create.foundation.ponder.PonderRegistrationHelper;
-import com.simibubi.create.infrastructure.ponder.AllPonderTags;
 
 public class PonderInit {
 
