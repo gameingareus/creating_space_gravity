@@ -1,21 +1,13 @@
 package com.rea.creatingspace.init.ingameobject;
 
 import com.rea.creatingspace.client.renderer.FlowGaugeBlockRenderer;
-import com.rea.creatingspace.client.renderer.KineticInputBlockEntityRenderer;
 import com.rea.creatingspace.client.renderer.MechanicalElectrolyserBlockRenderer;
 import com.rea.creatingspace.client.renderer.RocketStarterBlockRenderer;
 import com.rea.creatingspace.server.blockentities.*;
-import com.rea.creatingspace.server.blocks.multiblock.entity.RocketEngineBlockEntity;
-import com.rea.creatingspace.server.blocks.multiblock.entity.IOBlockEntity;
-import com.rea.creatingspace.server.blocks.multiblock.entity.KineticInputBlockEntity;
-import com.rea.creatingspace.server.blocks.multiblock.entity.KineticInputInstance;
-import com.rea.creatingspace.server.blocks.multiblock.entity.MultiblockBlockEntity;
 import com.simibubi.create.content.kinetics.base.ShaftInstance;
 import com.tterrag.registrate.util.entry.BlockEntityEntry;
 
 import static com.rea.creatingspace.CreatingSpace.REGISTRATE;
-import static com.rea.creatingspace.init.ingameobject.BlockInit.GHOST_BLOCK;
-import static com.rea.creatingspace.init.ingameobject.BlockInit.KINETIC_INPUT;
 
 public class BlockEntityInit {
     public static final BlockEntityEntry<RocketControlsBlockEntity> CONTROLS =
@@ -28,10 +20,10 @@ public class BlockEntityInit {
                     .validBlocks(BlockInit.GROUND_STATION)
                     .register();*/
 
-    public static final BlockEntityEntry<RocketStarterBlockEntity> STARTER =
-            REGISTRATE.blockEntity("starter", RocketStarterBlockEntity::new )
+    public static final BlockEntityEntry<RocketMotorBlockEntity> ROCKET_MOTOR =
+            REGISTRATE.blockEntity("rocket_motor", RocketMotorBlockEntity::new )
                     .instance(() -> ShaftInstance::new, false)
-                    .validBlocks(BlockInit.EXPLOSIVE_STARTER)
+                    .validBlocks(BlockInit.ROCKET_MOTOR)
                     .renderer(() -> RocketStarterBlockRenderer::new)
                     .register();
 
@@ -40,10 +32,10 @@ public class BlockEntityInit {
                     .validBlocks(BlockInit.CHEMICAL_SYNTHESIZER)
                     .register();
 
-    public static final BlockEntityEntry<RocketEngineBlockEntity.MediumEngine> MEDIUM_ENGINE =
+    public static final BlockEntityEntry<RocketEngineBlockEntity.BigEngine> BIG_ENGINE =
             REGISTRATE.blockEntity(
-                    "medium_engine", RocketEngineBlockEntity.MediumEngine::new)
-                    .validBlocks(BlockInit.MEDIUM_ROCKET_ENGINE)
+                    "big_engine", RocketEngineBlockEntity.BigEngine::new)
+                    .validBlocks(BlockInit.BIG_ROCKET_ENGINE)
                     .register();
 
     public static final BlockEntityEntry<RocketEngineBlockEntity.SmallEngine> SMALL_ENGINE =
@@ -66,7 +58,8 @@ public class BlockEntityInit {
                     .validBlocks( BlockInit.FLOW_METER)
                     .renderer(()-> FlowGaugeBlockRenderer::new)
                     .register();
-    public static final BlockEntityEntry<IOBlockEntity> IO_TILE = REGISTRATE
+
+    /*public static final BlockEntityEntry<IOBlockEntity> IO_TILE = REGISTRATE
             .blockEntity("io", IOBlockEntity::new)
             .validBlocks(BlockInit.IO_BLOCK)
             .register();
@@ -79,6 +72,7 @@ public class BlockEntityInit {
             .instance(() -> KineticInputInstance::new)
             .validBlocks(KINETIC_INPUT)
             .renderer(() -> KineticInputBlockEntityRenderer::new)
-            .register();
+            .register();*/
+
     public static void register() {}
 }

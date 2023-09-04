@@ -1,5 +1,6 @@
 {
-  "value": [
-
+  "values": [
+    "minecraft:overworld",
+    "creatingspace:the_moon"
   ]
 }

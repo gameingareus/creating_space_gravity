@@ -15,12 +15,15 @@ public class ItemInit {
 
     public static final ItemEntry<CryoHandTank> HAND_TANK = REGISTRATE.item(
             "hand_tank", p -> new CryoHandTank(p,1000))
-            .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
             .register();
 
     //component
     public static final ItemEntry<Item> INJECTOR = REGISTRATE.item(
             "injector",Item::new)
+            .properties(p -> p.tab(CreativeModeTabsInit.COMPONENT_TAB))
+            .register();
+    public static final ItemEntry<Item> REINFORCED_INJECTOR = REGISTRATE.item(
+                    "reinforced_injector",Item::new)
             .properties(p -> p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
@@ -32,8 +35,12 @@ public class ItemInit {
             "injector_grid",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
+    public static final ItemEntry<Item> REINFORCED_INJECTOR_GRID = REGISTRATE.item(
+                    "reinforced_injector_grid",Item::new)
+            .properties(p -> p.tab(CreativeModeTabsInit.COMPONENT_TAB))
+            .register();
 
-    public static final ItemEntry<Item> INCOMPLET_INJECTOR_GRID = REGISTRATE.item(
+    public static final ItemEntry<Item> INCOMPLETE_INJECTOR_GRID = REGISTRATE.item(
             "incomplete_injector_grid",Item::new)
             .register();
 
@@ -47,9 +54,6 @@ public class ItemInit {
             "basic_catalyst",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
-
-
-
 
     public static final ItemEntry<CombustibleItem> STARTER_CHARGE = REGISTRATE.item(
         "starter_charge", CombustibleItem::new)
@@ -138,33 +142,33 @@ public class ItemInit {
 
     //aluminium
 
-    public static final ItemEntry<Item> RAW_ALUMINIUM = REGISTRATE.item(
-                    "raw_aluminium",Item::new)
+    public static final ItemEntry<Item> RAW_ALUMINUM = REGISTRATE.item(
+                    "raw_aluminum",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
 
-    public static final ItemEntry<Item> CRUSHED_ALUMINIUM_ORE = REGISTRATE.item(
-                    "crushed_aluminium_ore",Item::new)
+    public static final ItemEntry<Item> CRUSHED_ALUMINUM_ORE = REGISTRATE.item(
+                    "crushed_aluminum_ore",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
 
-    public static final ItemEntry<Item> ALUMINIUM_INGOT = REGISTRATE.item(
-                    "aluminium_ingot",Item::new)
+    public static final ItemEntry<Item> ALUMINUM_INGOT = REGISTRATE.item(
+                    "aluminum_ingot",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
 
-    public static final ItemEntry<Item> ALUMINIUM_NUGGET = REGISTRATE.item(
-                    "aluminium_nugget",Item::new)
+    public static final ItemEntry<Item> ALUMINUM_NUGGET = REGISTRATE.item(
+                    "aluminum_nugget",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 
 
 
-    public static final ItemEntry<Item> ALUMINIUM_SHEET = REGISTRATE.item(
-                    "aluminium_sheet",Item::new)
+    public static final ItemEntry<Item> ALUMINUM_SHEET = REGISTRATE.item(
+                    "aluminum_sheet",Item::new)
             .properties(p->p.tab(CreativeModeTabsInit.COMPONENT_TAB))
             .register();
 

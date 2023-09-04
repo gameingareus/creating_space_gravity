@@ -12,7 +12,7 @@ public class CreativeModeTabsInit {
             new CreativeModeTab("machine_tab") {
         @Override
         public ItemStack makeIcon() {
-            return BlockItem.byBlock(BlockInit.EXPLOSIVE_STARTER.get()).getDefaultInstance();
+            return BlockItem.byBlock(BlockInit.MECHANICAL_ELECTROLYZER.get()).getDefaultInstance();
         }
     };
     public static final CreativeModeTab COMPONENT_TAB = new CreativeModeTab("component_tab") {

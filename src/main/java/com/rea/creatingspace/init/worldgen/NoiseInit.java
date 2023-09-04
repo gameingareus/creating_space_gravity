@@ -27,7 +27,7 @@ public class NoiseInit {
 
     private static final ResourceKey<DensityFunction> SHIFT_X = createKey("shift_x");
     private static final ResourceKey<DensityFunction> SHIFT_Z = createKey("shift_z");
-    private static final ResourceKey<DensityFunction> BASE_3D_NOISE_OVERWORLD = createKey("overworld/base_3d_noise");
+    private static final ResourceKey<DensityFunction> BASE_3D_NOISE_MOON = createKey("moon/base_3d_noise");
     protected static final NoiseSettings MOON_NOISE_SETTINGS = create(-64, 384, 1, 2);
     private static final ResourceKey<DensityFunction> SLOPED_CHEESE = createKey("overworld/sloped_cheese");
     private static final ResourceKey<DensityFunction> NOODLE = createKey("overworld/caves/noodle");
@@ -96,15 +96,15 @@ public class NoiseInit {
         DensityFunction slopedCheese = getFunction(densityFunctionRegistry, SLOPED_CHEESE);
         DensityFunction entrance = DensityFunctions.min(slopedCheese, DensityFunctions.mul(DensityFunctions.constant(5.0D), getFunction(densityFunctionRegistry, ENTRANCES)));
         DensityFunction rangeChoice = DensityFunctions.rangeChoice(slopedCheese, -1000000.0D, 1.5625D, entrance, underground(densityFunctionRegistry, slopedCheese));
-        DensityFunction finalDensity = DensityFunctions.min(postProcess(slideMoon(rangeChoice)), getFunction(densityFunctionRegistry, NOODLE));
+        DensityFunction finalDensity = DensityFunctions.min(postProcess(slideMoon(rangeChoice)), getFunction(densityFunctionRegistry, NOODLE));//3d noise
 
         DensityFunction aquaBarrier = DensityFunctions.noise(getNoise(Noises.AQUIFER_BARRIER), 0.5D);
         DensityFunction fluidLevelFlood = DensityFunctions.noise(getNoise(Noises.AQUIFER_FLUID_LEVEL_FLOODEDNESS), 0.67D);
         DensityFunction fluidLevelSpread = DensityFunctions.noise(getNoise(Noises.AQUIFER_FLUID_LEVEL_SPREAD), 0.7142857142857143D);
         DensityFunction continents = getFunction(densityFunctionRegistry, CONTINENTS);
-        DensityFunction erosion = DensityFunctions.add(getFunction(densityFunctionRegistry, EROSION),DensityFunctions.constant(4));
+        DensityFunction erosion = getFunction(densityFunctionRegistry, EROSION);
         DensityFunction ridges = getFunction(densityFunctionRegistry, RIDGES);
-        DensityFunction initialDensity = slideMoon(DensityFunctions.add(finalDepth, DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D));
+        DensityFunction initialDensity = slideMoon(DensityFunctions.add(finalDepth, DensityFunctions.constant(-0.703125D)).clamp(-64.0D, 64.0D));//terrain shaping
         DensityFunction gap = DensityFunctions.noise(getNoise(Noises.ORE_GAP));
         return new NoiseRouter(aquaBarrier, fluidLevelFlood, fluidLevelSpread, lava, temperature, vegetation, continents, erosion, depth, ridges, initialDensity, finalDensity, DensityFunctions.zero(), DensityFunctions.zero(), gap);
     }

@@ -59,8 +59,6 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
     public void queueAssembly(ResourceKey<Level> destination) {
         this.assembleNextTick = true;
         this.destination = destination;
-        System.out.println("assembly in the line");
-
     }
 
     private void assemble() {
@@ -75,7 +73,6 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
 
         try {
             lastException = null;
-            System.out.println("try assemble");
             if (!contraption.assemble(level, worldPosition))
                 return;
 
@@ -90,7 +87,6 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
             award(AllAdvancements.CONTRAPTION_ACTORS);
 
         contraption.removeBlocksFromWorld(level, BlockPos.ZERO);
-        System.out.println("has removed the blocks");
 
         if (destination == null){
             destination = Level.OVERWORLD;
@@ -162,5 +158,9 @@ public class RocketControlsBlockEntity extends SmartBlockEntity implements IDisp
         }
 
         return initialPosMap;
+    }
+
+    public boolean noLocalisation() {
+        return initialPosMap.isEmpty();
     }
 }

@@ -1,26 +1,22 @@
 package com.rea.creatingspace.init.ingameobject;
 
-import com.rea.creatingspace.server.blocks.*;
-import com.rea.creatingspace.server.blocks.multiblock.engines.MediumEngineBlock;
-import com.rea.creatingspace.server.blocks.multiblock.engines.SmallEngineBlock;
-import com.rea.creatingspace.server.items.MultiBlockItem;
-import com.rea.creatingspace.server.blocks.multiblock.IOBlock;
-import com.rea.creatingspace.server.blocks.multiblock.KineticInputBlock;
-import com.rea.creatingspace.server.blocks.multiblock.MultiblockBlock;
-import com.rea.creatingspace.server.blocks.multiblock.MultiblockPart;
 import com.rea.creatingspace.init.CreativeModeTabsInit;
 import com.rea.creatingspace.init.graphics.SpriteShiftInit;
+import com.rea.creatingspace.server.blocks.*;
+import com.rea.creatingspace.server.blocks.multiblock.BigRocketStructuralBlock;
+import com.rea.creatingspace.server.blocks.multiblock.SmallRocketStructuralBlock;
+import com.rea.creatingspace.server.blocks.multiblock.engines.BigEngineBlock;
+import com.rea.creatingspace.server.blocks.multiblock.engines.SmallEngineBlock;
+import com.rea.creatingspace.server.items.BigEngineItem;
+import com.rea.creatingspace.server.items.SmallEngineItem;
 import com.simibubi.create.content.decoration.encasing.CasingBlock;
 import com.simibubi.create.content.kinetics.BlockStressDefaults;
-import com.simibubi.create.foundation.data.AssetLookup;
-import com.simibubi.create.foundation.data.BuilderTransformers;
-import com.simibubi.create.foundation.data.SharedProperties;
-import com.simibubi.create.foundation.data.TagGen;
+import com.simibubi.create.foundation.data.*;
 import com.tterrag.registrate.util.entry.BlockEntry;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.common.Tags;
 
@@ -59,7 +55,7 @@ public class BlockInit {
             .register();
 
     public static final BlockEntry<Block> MOON_REGOLITH = REGISTRATE
-            .block("moon_regolith",Block::new).initialProperties(()-> Blocks.STONE)
+            .block("moon_regolith",Block::new).initialProperties(()-> Blocks.DIRT)
             .properties(p-> p.strength(1.0f))
             .item()
             .properties(p-> p.tab(CreativeModeTabsInit.MINERALS_TAB))
@@ -67,7 +63,7 @@ public class BlockInit {
             .register();
 
     public static final BlockEntry<Block> MOON_SURFACE_REGOLITH = REGISTRATE
-            .block("moon_surface_regolith",Block::new).initialProperties(()-> Blocks.STONE)
+            .block("moon_surface_regolith",Block::new).initialProperties(()-> Blocks.DIRT)
             .properties(p-> p.strength(1.0f))
             .item()
             .properties(p-> p.tab(CreativeModeTabsInit.MINERALS_TAB))
@@ -136,14 +132,14 @@ public class BlockInit {
                     "raw_cobalt_block",Block::new)
             .initialProperties(()-> Blocks.STONE)
             .properties(p-> p.strength(1.0f).requiresCorrectToolForDrops())
-            .tag(BlockTags.NEEDS_IRON_TOOL)
+            .tag(BlockTags.NEEDS_DIAMOND_TOOL)
             .transform(TagGen.pickaxeOnly())
             .item()
             .properties(p-> p.tab(CreativeModeTabsInit.MINERALS_TAB))
             .transform(customItemModel())
             .register();
     public static final BlockEntry<Block> MOON_ALUMINUM_ORE = REGISTRATE.block(
-                    "moon_aluminium_ore", Block::new)
+                    "moon_aluminum_ore", Block::new)
             .initialProperties(()-> Blocks.STONE)
             .properties(p-> p.strength(1.0f).requiresCorrectToolForDrops())
             .tag(BlockTags.NEEDS_IRON_TOOL)
@@ -152,8 +148,8 @@ public class BlockInit {
             .properties(p-> p.tab(CreativeModeTabsInit.MINERALS_TAB))
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<Block> RAW_ALUMINIUM_BLOCK = REGISTRATE.block(
-                    "raw_aluminium_block",Block::new)
+    public static final BlockEntry<Block> RAW_ALUMINUM_BLOCK = REGISTRATE.block(
+                    "raw_aluminum_block",Block::new)
             .initialProperties(()-> Blocks.STONE)
             .properties(p-> p.strength(1.0f).requiresCorrectToolForDrops())
             .tag(BlockTags.NEEDS_IRON_TOOL)
@@ -166,38 +162,56 @@ public class BlockInit {
     //machinery
 
 
-    public static final BlockEntry<MultiblockBlock> GHOST_BLOCK = REGISTRATE.block("multiblock", MultiblockBlock::new)
-            .initialProperties(SharedProperties::copperMetal)
-            .properties(MultiblockPart.propsGhost())
-            .tag(BlockTags.NEEDS_IRON_TOOL)
-            .transform(TagGen.pickaxeOnly())
-            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), prov.models().getBuilder("multiblock_ghost").texture("particle", new ResourceLocation("create:block/brass_casing"))))
-            .lang("Multiblock")
-            .register();
+
     public static final BlockEntry<SmallEngineBlock> SMALL_ROCKET_ENGINE = REGISTRATE
             .block("small_rocket_engine", SmallEngineBlock::new)
-            .initialProperties(SharedProperties::copperMetal)
-            .properties(MultiblockPart.props())
+            //.initialProperties(SharedProperties::copperMetal)
+            .properties(p-> p.strength(1.0f).dynamicShape().noOcclusion())
+
             .transform(axeOrPickaxe())
             .blockstate((c, p) -> p.simpleBlock(c.getEntry(), AssetLookup.standardModel(c, p)))
 
-            .item(MultiBlockItem::new)
+            .item(SmallEngineItem::new)
             .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
             .transform(customItemModel())
             .register();
-    public static final BlockEntry<MediumEngineBlock> MEDIUM_ROCKET_ENGINE = REGISTRATE
-            .block("medium_rocket_engine", MediumEngineBlock::new)
-            .initialProperties(()-> Blocks.STONE)
-            .properties(p-> p.strength(1.0f).dynamicShape().noOcclusion().requiresCorrectToolForDrops())
+    public static final BlockEntry<BigEngineBlock> BIG_ROCKET_ENGINE = REGISTRATE
+            .block("big_rocket_engine", BigEngineBlock::new)
+            //.initialProperties(SharedProperties::copperMetal)
+            .properties(p-> p.strength(1.0f).dynamicShape().noOcclusion())
             .transform(axeOrPickaxe())
-            .item(MultiBlockItem::new)
+            .item(BigEngineItem::new)
             .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
             .transform(customItemModel())
             .register();
+
+    public static final BlockEntry<BigRocketStructuralBlock> BIG_ENGINE_STRUCTURAL =
+            REGISTRATE.block("big_engine_structure", BigRocketStructuralBlock::new)
+                    //.initialProperties(SharedProperties::copperMetal)
+                    .properties(p-> p.strength(1.0f))
+                    .blockstate((c, p) -> p.getVariantBuilder(c.get())
+                            .forAllStatesExcept(BlockStateGen.mapToAir(p), BigRocketStructuralBlock.FACING))
+                    .properties(p -> p.color(MaterialColor.DIRT))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(axeOrPickaxe())
+                    .lang("Large Water Wheel")
+                    .register();
+
+    public static final BlockEntry<SmallRocketStructuralBlock> SMALL_ENGINE_STRUCTURAL =
+            REGISTRATE.block("small_engine_structure", SmallRocketStructuralBlock::new)
+                    //.initialProperties(SharedProperties::copperMetal)
+                    .properties(p-> p.strength(1.0f))
+                    .blockstate((c, p) -> p.getVariantBuilder(c.get())
+                            .forAllStatesExcept(BlockStateGen.mapToAir(p), SmallRocketStructuralBlock.FACING))
+                    .properties(p -> p.color(MaterialColor.DIRT))
+                    .properties(BlockBehaviour.Properties::noOcclusion)
+                    .transform(axeOrPickaxe())
+                    .lang("Large Water Wheel")
+                    .register();
 
     public static final BlockEntry<RocketControlsBlock> ROCKET_CONTROLS = REGISTRATE.block(
             "rocket_controls", RocketControlsBlock::new)
-            .initialProperties(()-> Blocks.STONE)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p-> p.strength(1.0f).dynamicShape().noOcclusion().requiresCorrectToolForDrops())
             .transform(axeOrPickaxe())
             .item()
@@ -205,30 +219,22 @@ public class BlockInit {
             .transform(customItemModel())
             .register();
 
-    /*public static final BlockEntry<GroundBuilderBlock> GROUND_STATION = REGISTRATE.block(
-                    "ground_station", GroundBuilderBlock::new)
-            .initialProperties(()-> Blocks.STONE)
-            .properties(p-> p.strength(1.0f).noOcclusion())
-            .item()
-            .transform(customItemModel())
-            .register();*/
-
-    public static final BlockEntry<RocketStarterBlock> EXPLOSIVE_STARTER =REGISTRATE.block(
-            "explosive_starter",RocketStarterBlock::new)
-            .initialProperties(()-> Blocks.STONE)
+    public static final BlockEntry<RocketMotorBlock> ROCKET_MOTOR =REGISTRATE.block(
+            "rocket_motor", RocketMotorBlock::new)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p-> p.strength(1.0f).noOcclusion().requiresCorrectToolForDrops())
             .transform(BlockStressDefaults.setCapacity(30000))
-            .transform(BlockStressDefaults.setGeneratorSpeed(RocketStarterBlock::getSpeedRange))
+            .transform(BlockStressDefaults.setGeneratorSpeed(RocketMotorBlock::getSpeedRange))
             .transform(axeOrPickaxe())
             .item()
-            .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
+            .properties(p-> p)
             .transform(customItemModel())
             .register();
 
 
     public static final BlockEntry<ChemicalSynthesizerBlock> CHEMICAL_SYNTHESIZER = REGISTRATE.block(
             "chemical_synthesizer", ChemicalSynthesizerBlock::new)
-            .initialProperties(()-> Blocks.STONE)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p-> p.strength(1.0f).noOcclusion().requiresCorrectToolForDrops())
             .transform(axeOrPickaxe())
             .item()
@@ -239,7 +245,7 @@ public class BlockInit {
 
     public static final BlockEntry<MechanicalElectrolyzerBlock> MECHANICAL_ELECTROLYZER = REGISTRATE.block(
             "mechanical_electrolyzer", MechanicalElectrolyzerBlock::new)
-            .initialProperties(()-> Blocks.STONE)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p-> p.strength(1.0f).noOcclusion().requiresCorrectToolForDrops())
             .transform(BlockStressDefaults.setImpact(40000))
             .transform(axeOrPickaxe())
@@ -250,29 +256,12 @@ public class BlockInit {
 
     public static final BlockEntry<FlowGaugeBlock> FLOW_METER = REGISTRATE
             .block("flow_meter", FlowGaugeBlock::new)
-            .initialProperties(()-> Blocks.STONE)
+            .initialProperties(SharedProperties::copperMetal)
             .properties(p -> p.strength(1.0f).noOcclusion().requiresCorrectToolForDrops())
             .transform(axeOrPickaxe())
             .item()
             .properties(p -> p.tab(CreativeModeTabsInit.MACHINE_TAB))
             .transform(customItemModel())
-            .register();
-    public static final BlockEntry<KineticInputBlock> KINETIC_INPUT = REGISTRATE.block("kinetic_input", KineticInputBlock::new)
-            .initialProperties(SharedProperties::copperMetal)
-            .properties(MultiblockPart.propsGhost())
-            .transform(BlockStressDefaults.setImpact(16))
-            .tag(BlockTags.NEEDS_IRON_TOOL)
-            .transform(TagGen.pickaxeOnly())
-            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), prov.models().getBuilder("kinetic_in").texture("particle", new ResourceLocation("create:block/brass_casing"))))
-            .lang("Multiblock Rotational Input")
-            .register();
-    public static final BlockEntry<IOBlock> IO_BLOCK = REGISTRATE.block("io_block", IOBlock::new)
-            .initialProperties(SharedProperties::copperMetal)
-            .properties(MultiblockPart.propsGhost())
-            .tag(BlockTags.NEEDS_IRON_TOOL)
-            .transform(TagGen.pickaxeOnly())
-            .blockstate((ctx, prov) -> prov.simpleBlock(ctx.getEntry(), prov.models().getBuilder("io_block").texture("particle", new ResourceLocation("create:block/brass_casing"))))
-            .lang("Multiblock IO")
             .register();
 
 

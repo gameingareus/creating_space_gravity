@@ -2,6 +2,7 @@ package com.rea.creatingspace.init.ingameobject;
 
 
 import com.rea.creatingspace.CreatingSpace;
+import com.rea.creatingspace.init.CreativeModeTabsInit;
 import com.simibubi.create.content.fluids.OpenEndedPipe;
 import com.simibubi.create.content.fluids.VirtualFluid;
 import com.simibubi.create.foundation.data.CreateRegistrate;
@@ -54,6 +55,7 @@ public class FluidInit {
     public static final ItemEntry<BucketItem> CREATIVE_BUCKET_METHANE =
             REGISTRATE.item("liquid_methane_bucket",
                     p-> new BucketItem(LIQUID_METHANE.get(),p))
+                    .tab(() -> CreativeModeTabsInit.MINERALS_TAB)
                     .register();
 
 
@@ -66,6 +68,7 @@ public class FluidInit {
     public static final ItemEntry<BucketItem> CREATIVE_BUCKET_OXYGEN =
             REGISTRATE.item("liquid_oxygen_bucket",
                     p-> new BucketItem(LIQUID_OXYGEN.get(),p))
+                    .tab(() -> CreativeModeTabsInit.MINERALS_TAB)
                     .register();
                     /*fogColor(0.08f,0.55f,0.81f))*/
 
@@ -78,6 +81,7 @@ public class FluidInit {
     public static final ItemEntry<BucketItem> CREATIVE_BUCKET_HYDROGEN =
             REGISTRATE.item("liquid_hydrogen_bucket",
                             p-> new BucketItem(LIQUID_HYDROGEN.get(),p))
+                    .tab(() -> CreativeModeTabsInit.MINERALS_TAB)
                     .register();
 
 

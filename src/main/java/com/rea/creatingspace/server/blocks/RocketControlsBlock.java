@@ -1,16 +1,20 @@
 package com.rea.creatingspace.server.blocks;
 
+import com.rea.creatingspace.init.ingameobject.BlockInit;
 import com.rea.creatingspace.server.blockentities.RocketControlsBlockEntity;
 import com.rea.creatingspace.init.ingameobject.BlockEntityInit;
 import com.rea.creatingspace.client.screen.DestinationScreen;
 import com.simibubi.create.foundation.block.IBE;
 import com.simibubi.create.foundation.gui.ScreenOpener;
 
+import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
@@ -21,11 +25,13 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
@@ -33,10 +39,15 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.fml.DistExecutor;
 import org.jetbrains.annotations.Nullable;
 
-public class RocketControlsBlock extends Block implements IBE<RocketControlsBlockEntity> {
+import java.util.List;
+
+import static net.minecraft.world.level.block.ShulkerBoxBlock.getColoredItemStack;
+
+public class RocketControlsBlock extends Block implements IBE<RocketControlsBlockEntity>, TooltipModifier {
 
     public RocketControlsBlock(Properties properties) {
         super(properties);
@@ -102,7 +113,31 @@ public class RocketControlsBlock extends Block implements IBE<RocketControlsBloc
         builder.add(ASSEMBLE_NEXT_TICK);
     }
 
+    //item
+    /*public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        BlockEntity blockentity = level.getBlockEntity(pos);
+        if (blockentity instanceof RocketControlsBlockEntity rocketControlsBlockEntity) {
+            if (!level.isClientSide && player.isCreative() && !rocketControlsBlockEntity.noLocalisation()) {
+                ItemStack itemstack = BlockItem.byBlock(BlockInit.ROCKET_CONTROLS.get()).getDefaultInstance();
+                blockentity.saveToItem(itemstack);
 
+
+                ItemEntity itementity = new ItemEntity(level, (double)pos.getX() + 0.5D, (double)pos.getY() + 0.5D, (double)pos.getZ() + 0.5D, itemstack);
+                itementity.setDefaultPickUpDelay();
+                level.addFreshEntity(itementity);
+            }
+        }
+
+        super.playerWillDestroy(level, pos, state, player);
+    }*/
+
+    public ItemStack getCloneItemStack(BlockGetter blockGetter, BlockPos pos, BlockState blockState) {
+        ItemStack itemstack = super.getCloneItemStack(blockGetter, pos, blockState);
+        blockGetter.getBlockEntity(pos, BlockEntityInit.CONTROLS.get()).ifPresent((p_187446_) -> {
+            p_187446_.saveToItem(itemstack);
+        });
+        return itemstack;
+    }
 
     //blockEntity
 
@@ -124,6 +159,11 @@ public class RocketControlsBlock extends Block implements IBE<RocketControlsBloc
                 controlsBlock.tick();
             }
         };
+    }
+
+    @Override
+    public void modify(ItemTooltipEvent context) {
+
     }
 }
 

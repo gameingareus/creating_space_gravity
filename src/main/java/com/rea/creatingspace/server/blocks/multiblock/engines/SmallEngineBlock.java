@@ -1,36 +1,41 @@
 package com.rea.creatingspace.server.blocks.multiblock.engines;
 
 import com.rea.creatingspace.init.ingameobject.BlockEntityInit;
-import com.rea.creatingspace.server.blocks.multiblock.entity.RocketEngineBlockEntity.*;
+import com.rea.creatingspace.init.ingameobject.BlockInit;
+import com.rea.creatingspace.server.blockentities.RocketEngineBlockEntity.SmallEngine;
+import com.rea.creatingspace.server.blocks.multiblock.SmallRocketStructuralBlock;
+
 import com.simibubi.create.foundation.block.IBE;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.BlockHitResult;
-
-import static com.rea.creatingspace.server.blocks.multiblock.MultiblockPart.MultiblockMainPart.MultiblockPartType.BLANK;
-import static com.rea.creatingspace.server.blocks.multiblock.MultiblockPart.MultiblockMainPart.MultiblockPartType.MAIN;
 
 
 public class SmallEngineBlock extends RocketEngineBlock implements IBE<SmallEngine> {
 
-	private static final MultiblockPartType[][][] LAYOUT = new MultiblockPartType[][][] {
-		{
-			{ BLANK}
-		},
-		{
-			{ MAIN}
-		}
-	};
 
 	public SmallEngineBlock(Properties properties) {
 		super(properties);
+	}
+
+	@Override
+	public Vec3i getOffset(Direction facing) {
+		return switch (facing){
+			case DOWN -> new Vec3i(0,0,0);
+			default -> new Vec3i(0,1,0);
+	};
+	}
+
+
+	@Override
+	public Vec3i getSize(Direction facing) {
+		return new Vec3i(1, 2, 1);
 	}
 
 	@Override
@@ -43,23 +48,28 @@ public class SmallEngineBlock extends RocketEngineBlock implements IBE<SmallEngi
 		return BlockEntityInit.SMALL_ENGINE.get();
 	}
 
+
 	@Override
-	public MultiblockPartType[][][] getMultiblockLayout() {
-		return LAYOUT;
+	public void tick(BlockState pState, ServerLevel pLevel, BlockPos pPos, RandomSource pRandom) {
+		Direction targetSide = Direction.DOWN;
+		BlockPos structurePos = pPos.relative(targetSide);
+		BlockState occupiedState = pLevel.getBlockState(structurePos);
+		BlockState requiredStructure = BlockInit.SMALL_ENGINE_STRUCTURAL.getDefaultState()
+				.setValue(SmallRocketStructuralBlock.FACING, targetSide.getOpposite());
+		pLevel.setBlockAndUpdate(structurePos, requiredStructure);
+
+
 	}
 
 	@Override
-	public Vec3i getStart(Direction facing) {
-		return new Vec3i(0, 0, 0);
+	public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState1, boolean isMoving) {
+		super.onRemove(blockState, level, blockPos, blockState1, isMoving);
 	}
 
+	public void placeStructure(BlockPos pos, ServerLevel level){
 
-	@Override
-	public InteractionResult onActivate(BlockState state, Level level, BlockPos pos, Player player,
-										InteractionHand hand, BlockHitResult pHit) {
-
-		//switch from an active to a passive state
-		return level.getBlockEntity(pos, getBlockEntityType()).map(te -> te.onClick(state, pos, player, hand)).orElse(InteractionResult.PASS);
 	}
+	public void verifySpace(BlockPos pos, ServerLevel level){
 
+	}
 }

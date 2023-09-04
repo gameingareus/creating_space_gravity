@@ -50,6 +50,7 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
     public float trust = 0;
     public float dryMass = 0;
     public float inertFluidsMass = 0;
+    private int propellantConsumption = 0;
     public ResourceKey<Level> originDimension = Level.OVERWORLD;
     public ResourceKey<Level> destination;
 
@@ -61,12 +62,12 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
     public static RocketContraptionEntity create(Level level, RocketContraption contraption, ResourceKey<Level> destination) {
         RocketContraptionEntity entity =
                 new RocketContraptionEntity(EntityInit.ROCKET_CONTRAPTION.get(), level);
-        LOGGER.info("got the contraption");
         entity.setContraption(contraption);
-        LOGGER.info("got the contraption V2");
         entity.havePropellantsTanks = entity.trySearchTanks(entity);
         entity.dryMass = contraption.getDryMass();
         entity.trust = contraption.getTrust();
+        entity.propellantConsumption = contraption.getPropellantConsumption();
+        System.out.println(entity.propellantConsumption);
         entity.originDimension = level.dimension();
         entity.destination = destination;
         LOGGER.info("finishing setting up parameters");
@@ -99,6 +100,7 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
         this.havePropellantsTanks = compound.getBoolean("havePropellantsTanks");
         this.trust = compound.getFloat("trust");
         this.dryMass = compound.getFloat("dryMass");
+        this.propellantConsumption = compound.getInt("propellantConsumption");
         this.entityData.set(SPEED_ENTITY_DATA_ACCESSOR, compound.getFloat("verticalSpeed"));
         this.entityData.set(ACCELERATION_ENTITY_DATA_ACCESSOR,compound.getFloat("verticalAcceleration"));
         this.destination = ResourceKey.create(Registry.DIMENSION_REGISTRY,
@@ -109,6 +111,7 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
     @Override
     protected void writeAdditional(CompoundTag compound, boolean spawnPacket) {
         compound.putBoolean("havePropellantsTanks",this.havePropellantsTanks);
+        compound.putInt("propellantConsumption", this.propellantConsumption);
         compound.putFloat("trust",this.trust);
         compound.putFloat("dryMass",this.dryMass);
         compound.putFloat("verticalSpeed",this.entityData.get(SPEED_ENTITY_DATA_ACCESSOR));
@@ -133,11 +136,9 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
                     FluidInit.LIQUID_METHANE.getType().getDensity() / 1000;
 
             if (this.havePropellantsTanks && !this.atmosphericReentry && !(o2mass == 0f || ch4mass == 0f)) {
-                this.entityData.set(ACCELERATION_ENTITY_DATA_ACCESSOR,0f);
-                speed = 2 *(
-                        1 -
-                        gravity*(this.dryMass + this.inertFluidsMass + o2mass + ch4mass)/this.trust
-                );
+                float acceleration  = (float) ((this.trust/((this.dryMass + this.inertFluidsMass + o2mass + ch4mass)*9.81)- gravity )/20);
+                this.entityData.set(ACCELERATION_ENTITY_DATA_ACCESSOR,acceleration);
+
                 consumePropellant(this);
 
             } else if(gravity!=0 || speed!=0){
@@ -210,10 +211,10 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
         RocketContraption rocketContraption = (RocketContraption) rocketContraptionEntity.contraption;
         IFluidHandler fluidHandler = rocketContraption.getSharedFluidTanks();
 
-        int drainAmount = rocketContraption.getPropellantConsumption();
-
-        fluidHandler.drain(new FluidStack(FluidInit.LIQUID_METHANE.get().getSource(),drainAmount) , IFluidHandler.FluidAction.EXECUTE );//drain methane
-        fluidHandler.drain(new FluidStack(FluidInit.LIQUID_OXYGEN.get().getSource(),drainAmount) , IFluidHandler.FluidAction.EXECUTE );//drain oxygen
+        int drainAmount = this.propellantConsumption;
+        System.out.println(drainAmount);
+        fluidHandler.drain(new FluidStack(FluidInit.LIQUID_METHANE.get(),drainAmount) , IFluidHandler.FluidAction.EXECUTE );//drain methane
+        fluidHandler.drain(new FluidStack(FluidInit.LIQUID_OXYGEN.get(),drainAmount) , IFluidHandler.FluidAction.EXECUTE );//drain oxygen
 
         rocketContraptionEntity.havePropellantsTanks = trySearchTanks(rocketContraptionEntity);
 
@@ -249,7 +250,8 @@ public class RocketContraptionEntity extends AbstractContraptionEntity {
         }
         contraptionEntity.entityData.set(OXYGEN_AMOUNT_DATA_ACCESSOR,o2amount);
         contraptionEntity.entityData.set(METHANE_AMOUNT_DATA_ACCESSOR,ch4amount);
-
+        System.out.println(o2amount);
+        System.out.println(ch4amount);
         return foundMethaneTank && foundOxygenTank;
     }
     @Nullable
