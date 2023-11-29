@@ -58,7 +58,7 @@ public class PlumeParticle extends SimpleAnimatedParticle {
 
         // Scaling and size adjustments based on speed
         if (speed.length() > 1) {
-            scale(1.2f); // Adjust the scale for higher speeds
+            scale(1.0f); // Adjust the scale for higher speeds
             this.quadSize *= 1.1; // Increase the size to simulate cone spread
         } else if (speed.length() < 1) {
             selectSprite(1);
