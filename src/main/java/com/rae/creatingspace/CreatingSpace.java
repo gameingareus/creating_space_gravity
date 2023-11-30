@@ -13,16 +13,21 @@ import com.rae.creatingspace.server.contraption.CSContraptionType;
 import com.rae.creatingspace.utilities.data.AccessibilityMatrixReader;
 import com.rae.creatingspace.utilities.data.MassOfBlockReader;
 import com.rae.creatingspace.utilities.data.NoO2AtmosphereReader;
+import com.rae.creatingspace.worldgen.PlanetGravity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
 import com.simibubi.create.foundation.item.TooltipHelper;
 import com.simibubi.create.foundation.item.TooltipModifier;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.AddReloadListenerEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -62,6 +67,8 @@ public class CreatingSpace {
         ParticleTypeInit.register(modEventBus);
 
         DimensionInit.register(modEventBus);
+        PlanetGravity planetGravity = new PlanetGravity();
+        forgeEventBus.register(planetGravity);
 
         PaintingInit.register(modEventBus);
 
@@ -85,6 +92,7 @@ public class CreatingSpace {
             FluidInit.registerOpenEndedEffect();
         });
     }
+
     public static void onAddReloadListeners(AddReloadListenerEvent event)
     {
         event.addListener(AccessibilityMatrixReader.MATRIX_HOLDER);

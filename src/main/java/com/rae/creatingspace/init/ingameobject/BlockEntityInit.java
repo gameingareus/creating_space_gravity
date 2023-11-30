@@ -2,6 +2,7 @@ package com.rae.creatingspace.init.ingameobject;
 
 import com.rae.creatingspace.client.renderer.blockentity.*;
 import com.rae.creatingspace.client.renderer.instance.AirLiquefierInstance;
+import com.rae.creatingspace.client.renderer.instance.GravityGeneratorInstance;
 import com.rae.creatingspace.client.renderer.instance.OxygenSealerInstance;
 import com.rae.creatingspace.server.armor.OxygenBacktankBlockEntity;
 import com.rae.creatingspace.server.blockentities.*;
@@ -91,7 +92,13 @@ public class BlockEntityInit {
                     .validBlocks(BlockInit.OXYGEN_SEALER)
                     .renderer(() -> OxygenSealerRenderer::new)
                     .register();
-
+    public static final BlockEntityEntry<GravityGeneratorBlockEntity> GRAVITY_GENERATOR =
+            REGISTRATE.blockEntity(
+                            "air_liquefier", GravityGeneratorBlockEntity::new)
+                    .instance(()-> GravityGeneratorInstance::new)
+                    .validBlocks( BlockInit.GRAVITY_GENERATOR)
+                    .renderer(()-> GravityGeneratorBlockRenderer::new)
+                    .register();
 
     /*public static final BlockEntityEntry<IOBlockEntity> IO_TILE = REGISTRATE
             .blockEntity("io", IOBlockEntity::new)

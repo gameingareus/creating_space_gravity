@@ -287,6 +287,16 @@ public class BlockInit {
             .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
             .transform(customItemModel())
             .register();
+    public static final BlockEntry<GravityGeneratorBlock> GRAVITY_GENERATOR = REGISTRATE.block(
+                    "gravity_generator", GravityGeneratorBlock::new)
+            .initialProperties(SharedProperties::copperMetal)
+            .properties(p-> p.strength(1.0f).noOcclusion().requiresCorrectToolForDrops())
+            .transform(BlockStressDefaults.setImpact(500))
+            .transform(axeOrPickaxe())
+            .item()
+            .properties(p-> p.tab(CreativeModeTabsInit.MACHINE_TAB))
+            .transform(customItemModel())
+            .register();
     public static final BlockEntry<OxygenBlock> OXYGEN = REGISTRATE
             .block("oxygen",OxygenBlock::new)
             .initialProperties(()-> Blocks.AIR)

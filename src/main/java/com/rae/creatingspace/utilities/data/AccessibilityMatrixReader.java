@@ -64,7 +64,7 @@ public class AccessibilityMatrixReader {
                 return parameter.getTextureLocation();
             }
         }
-        return new ResourceLocation("creatingspace", "textures/environment/sun.png"); // Fallback texture
+        return new ResourceLocation("creatingspace", "textures/environment/moon.png"); // Fallback texture
     }
 
     public record PartialAccessibilityMatrix(boolean replace, Map<String, Map<String, AccessibilityParameter>> partialMatrix) {

@@ -5,7 +5,7 @@
         "deltaV": 1500,
         "arrivalHeight": 64,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/earth.png"
       }
     },
     "creatingspace:earth_orbit": {
@@ -13,13 +13,13 @@
         "deltaV": 600,
         "arrivalHeight": 64,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/moon.png"
       },
       "minecraft:overworld": {
         "deltaV": 200,
         "arrivalHeight": 200,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/moon.png"
       }
     },
     "creatingspace:moon_orbit": {
@@ -27,13 +27,13 @@
         "deltaV": 300,
         "arrivalHeight": 200,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/moon.png"
       },
       "creatingspace:earth_orbit": {
         "deltaV": 200,
         "arrivalHeight": 64,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/moon.png"
       }
     },
     "creatingspace:the_moon": {
@@ -41,7 +41,7 @@
         "deltaV": 300,
         "arrivalHeight": 64,
         "modid": "creatingspace",
-        "texture": "textures/environment/sun.png"
+        "texture": "textures/environment/moon.png"
       }
     }
   }
