@@ -4,15 +4,18 @@
       "adjacentDimensions": {
         "creatingspace:earth_orbit": {
           "deltaV": 1500
+        },
+        "ad_astra:earth_orbit": {
+          "deltaV": 1500
         }
       },
       "arrivalHeight": 200,
-      "gravity": 9.81,
-      "orbitingPlanet":{
+       "gravity": 9.81,
+      "orbitingPlanet": {
         "fileName": "name",
         "size": 20
       },
-      "suns":[
+      "suns": [
         {
           "fileName": "name",
           "size": 20
@@ -26,22 +29,100 @@
         },
         "minecraft:overworld": {
           "deltaV": 200
+        },
+        "ad_astra:moon_orbit": {
+          "deltaV": 600
         }
       },
-        "arrivalHeight": 64,
-        "planetUnder" : "minecraft:overworld",
-        "gravity": 0,
-        "orbitingPlanet":{
+      "arrivalHeight": 64,
+      "planetUnder": "minecraft:overworld",
+      "gravity": 0,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
           "fileName": "name",
           "size": 20
-        },
-        "suns":[
-          { "fileName": "name",
-            "size": 20
-          }
-        ]
-      },
+        }
+      ]
+    },
     "creatingspace:moon_orbit": {
+      "adjacentDimensions": {
+        "creatingspace:the_moon": {
+          "deltaV": 300
+        },
+        "creatingspace:earth_orbit": {
+          "deltaV": 200
+        },
+        "ad_astra:earth_orbit": {
+          "deltaV": 200
+        },
+        "ad_astra:the_moon": {
+          "deltaV": 300
+        }
+      },
+      "arrivalHeight": 64,
+      "planetUnder": "creatingspace:the_moon",
+      "gravity": 0,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
+          "fileName": "name",
+          "size": 20
+        }
+      ]
+    },
+    "creatingspace:the_moon": {
+      "adjacentDimensions": {
+        "creatingspace:moon_orbit": {
+          "deltaV": 300
+        },
+        "ad_astra:moon_orbit": {
+          "deltaV": 300
+        }
+      },
+      "arrivalHeight": 200,
+      "gravity": 1.6,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
+          "fileName": "name",
+          "size": 20
+        }
+      ]
+    },
+    "ad_astra:earth_orbit": {
+      "adjacentDimensions": {
+        "ad_astra:moon_orbit": {
+          "deltaV": 600
+        },
+        "minecraft:overworld": {
+          "deltaV": 200
+        }
+      },
+      "arrivalHeight": 64,
+      "planetUnder": "minecraft:overworld",
+      "gravity": 0,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
+          "fileName": "name",
+          "size": 20
+        }
+      ]
+    },
+    "ad_astra:moon_orbit": {
       "adjacentDimensions": {
         "creatingspace:the_moon": {
           "deltaV": 300
@@ -51,19 +132,20 @@
         }
       },
       "arrivalHeight": 64,
-      "planetUnder" : "creatingspace:the_moon",
+      "planetUnder": "ad_astra:the_moon",
       "gravity": 0,
-      "orbitingPlanet":{
+      "orbitingPlanet": {
         "fileName": "name",
         "size": 20
       },
-      "suns":[
-        { "fileName": "name",
+      "suns": [
+        {
+          "fileName": "name",
           "size": 20
         }
       ]
     },
-    "creatingspace:the_moon": {
+    "ad_astra:the_moon": {
       "adjacentDimensions": {
         "creatingspace:moon_orbit": {
           "deltaV": 300
@@ -71,12 +153,45 @@
       },
       "arrivalHeight": 200,
       "gravity": 1.6,
-      "orbitingPlanet":{
+      "orbitingPlanet": {
         "fileName": "name",
         "size": 20
       },
-      "suns":[
-        { "fileName": "name",
+      "suns": [
+        {
+          "fileName": "name",
+          "size": 20
+        }
+      ]
+    },
+    "ad_astra:mars": {
+      "adjacentDimensions": {
+      },
+      "arrivalHeight": 200,
+      "gravity": 3.71,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
+          "fileName": "name",
+          "size": 20
+        }
+      ]
+    },
+    "ad_astra:venus": {
+      "adjacentDimensions": {
+      },
+      "arrivalHeight": 200,
+      "gravity": 8.87,
+      "orbitingPlanet": {
+        "fileName": "name",
+        "size": 20
+      },
+      "suns": [
+        {
+          "fileName": "name",
           "size": 20
         }
       ]
