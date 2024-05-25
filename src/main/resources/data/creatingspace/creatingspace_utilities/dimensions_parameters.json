@@ -129,6 +129,12 @@
         },
         "creatingspace:earth_orbit": {
           "deltaV": 200
+        },
+        "ad_astra:earth_orbit": {
+          "deltaV": 200
+        },
+        "ad_astra:the_moon": {
+          "deltaV": 200
         }
       },
       "arrivalHeight": 64,
@@ -148,6 +154,9 @@
     "ad_astra:the_moon": {
       "adjacentDimensions": {
         "creatingspace:moon_orbit": {
+          "deltaV": 300
+        },
+        "ad_astra:moon_orbit": {
           "deltaV": 300
         }
       },
