@@ -170,38 +170,7 @@
         {
           "fileName": "name",
           "size": 20
-        }
-      ]
-    },
-    "ad_astra:mars": {
-      "adjacentDimensions": {
-      },
-      "arrivalHeight": 200,
-      "gravity": 3.71,
-      "orbitingPlanet": {
-        "fileName": "name",
-        "size": 20
-      },
-      "suns": [
-        {
-          "fileName": "name",
-          "size": 20
-        }
-      ]
-    },
-    "ad_astra:venus": {
-      "adjacentDimensions": {
-      },
-      "arrivalHeight": 200,
-      "gravity": 8.87,
-      "orbitingPlanet": {
-        "fileName": "name",
-        "size": 20
-      },
-      "suns": [
-        {
-          "fileName": "name",
-          "size": 20
+
         }
       ]
     }
